@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- HandlerMapping -->
+	<bean id="handlerMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<value>
+			<!-- 관리자 상품  -->
+			/AdminGoodsList.do=admingoodsAction
+			/AdminGoodsAdd.do=admingoodsAction
+			/AdminGoodsAddOk.do=admingoodsAction
+			/AdminGoodsDelete.do=admingoodsAction
+			/AdminGoodsDeleteOk.do=admingoodsAction
+			/AdminGoodsModify.do=admingoodsAction
+			/AdminGoodsModifyOk.do=admingoodsAction
+			/AdminGoodsContent.do=admingoodsAction
+			
+			
+			<!-- 장바구니 -->
+			/BasketAdd.do=basketAction
+			/BasketList.do=basketAction
+			/BasketDel.do=basketAction
+
+
+            <!-- 사용자 상품 -->
+			/GoodsList.do=goodsAction
+			/GoodsAdd.do=goodsAction
+			/GoogsDelete.do=goodsAction
+			/GoodsModify.do=goodsAction
+			/GoodsModifyOk.do=goodsAction
+			/GoodsDetail.do=goodsAction
+			
+			<!-- 회원관리 -->
+			/MemberLogin.do=memberAction
+			/MemberLoginOk.do=memberAction
+			/MemberJoin.do=memberAction
+			/MemberJoinOk.do=memberAction
+			/MemberIDCheckAction.do=memberAction
+			/Zipcode.do=memberAction
+			/ZipFind.do=memberAction
+			/ZipFindOk.do=memberAction
+			/MemberZipcodeAction.do=memberAction
+			/MemberFind.do=memberAction
+			/MemberFindOk.do=memberAction
+			/PwdFind.do=memberAction
+			/PwdFindOk.do=memberAction
+			/JoinIDCheck.do=memberAction
+			/MemberLogout.do=memberAction
+			/Index.do=memberAction
+			/MemberEdit.do=memberAction
+			/MemberEditOk.do=memberAction
+			/MemberDel.do=memberAction
+			/MemberDelOk.do=memberAction
+			
+			
+			<!-- 주문관리 -->
+			/OrderStart.do=orderAction
+			/OrderList.do=orderAction
+			/OrderAdd.do=orderAction
+
+			</value>
+		</property>
+	</bean>
+
+	<!-- Controller -->
+	<bean id="admingoodsAction" class="com.naver.action.AdminGoodsAction" p:admingoodsService-ref="admingoodsService" p:categoryService-ref="categoryService"/>
+	<bean id="basketAction" class="com.naver.action.BasketAction" p:basketService-ref="basketService" />
+	<bean id="goodsAction" class="com.naver.action.GoodsAction"  p:goodsService-ref="goodsService" p:categoryService-ref="categoryService" />
+	<bean id="memberAction" class="com.naver.action.MemberAction" p:memberService-ref="memberService" p:phonemailService-ref="phonemailService" />
+	<bean id="orderAction" class="com.naver.action.OrderAction"  p:orderService-ref="orderService" />
+	<!-- 스프링 setter DI 의존관계를 설정하는 부분 -->
+
+	<!-- ViewResolver -->
+	<bean id="internalResourceViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.JstlView</value>
+		</property>
+		<property name="prefix">
+			<value>jsp/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+	
+	
+	<!-- MethodNameResolver -->
+	<bean id="methodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/BasketAdd.do">add</prop>
+				<prop key="/BasketList.do">list</prop>
+				<prop key="/BasketDel.do">del</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+	<!-- 파일 업로드 구현을 위한 정의 -->
+	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<property name="maxUploadSize">
+	<value>10000000</value>
+	</property>
+	<property name="uploadTempDir" ref="uploadDirResource"/>
+	</bean>
+	
+	<bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
+	<constructor-arg>
+		<value>c:/temp/fileupload/temp</value>
+	</constructor-arg>
+	</bean> -->
+</beans>
+
+

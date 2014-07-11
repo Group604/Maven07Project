@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Goods">
+	<!-- 검색 전 후 레코드 갯 수 -->
+	<select id="goods_count" parameterType="goods" resultType="int">
+		select count(goods_num) from goods
+        <where> 
+        <if test="find_category==null">
+        </if>
+        <if test="find_category !=null">
+         <if test="find_category =='ALL'"></if>
+         <if test="find_category !='ALL'">
+        goods_category like #{find_category}
+        </if>
+        </if>
+        <if test="find_level==0"></if>
+        <if test="find_level!=0">
+        and goods_level =#{find_level}
+        </if>
+		 and goods_inuse=0
+      </where>
+	</select>
+
+	<!-- 검색 전 후 레코드 목 록 -->
+	<select id="goods_list" parameterType="goods" resultType="goods">
+		select *
+		from (
+		select rowNum rNum,
+		goods_num,
+		goods_category,
+		goods_level,
+		goods_name,
+		goods_content,
+		goods_price,
+		goods_image,
+		goods_best,
+		goods_date
+		from
+		(select * from goods
+		<where> 
+        <if test="find_category==null">
+        </if>
+        <if test="find_category !=null">
+        <if test="find_category =='ALL'"></if>
+         <if test="find_category !='ALL'">
+        goods_category like #{find_category}
+        </if>
+        </if>
+        <if test="find_level==0"></if>
+        <if test="find_level!=0">
+        and goods_level =#{find_level}
+        </if>
+		 and goods_inuse=0
+      </where>
+		 order by goods_num desc))
+		where rNum &gt; #{startrow} and rNum&lt;#{endrow}
+		<!-- &gt; 은 ~보다 크다(>), &lt; 은 ~보다 작다(<) -->
+	</select>
+
+
+    <!-- 상품정보 -->
+   <select id="goods_cont" parameterType="int" resultType="goods">
+   select * from goods where goods_num=#{goods_num} and goods_inuse=0
+   </select>
+
+
+
+
+</mapper>
+  

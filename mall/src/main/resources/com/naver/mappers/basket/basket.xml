@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Basket">
+
+	<select id="basket_list" parameterType="String" resultType="basket">
+		select * from basket where basket_member_id =#{member_id}
+	</select>
+	
+	<select id="basket_item" parameterType="basket" resultType="basket">
+		select * 
+		  from basket 
+		 where basket_member_id=#{basket_member_id} 
+		   and basket_goods_num=#{basket_goods_num}
+	</select>
+	
+	<update id="basket_add" parameterType="basket" >
+	   update basket
+	      set basket_goods_amount=basket_goods_amount+#{basket_goods_amount}
+	    where basket_member_id=#{basket_member_id}
+	      and basket_goods_num=#{basket_goods_num}
+	</update>
+	
+	<insert id="basket_ins" parameterType="basket">
+	   insert into basket(basket_num, 
+	                      basket_member_id,
+	                      basket_goods_num,
+	                      basket_goods_amount,
+	                     <!--  basket_goods_size,
+	                      basket_color, -->
+	                      basket_date)
+	               values(basket_no_seq.nextval,
+	                      #{basket_member_id},
+	                      #{basket_goods_num},
+	                      #{basket_goods_amount},
+	                      <!-- #{basket_goods_size},
+	                      #{basket_color}, -->
+	                      sysdate)
+	</insert>
+</mapper>
+    
+    

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+   <mapper namespace="AdminGoods">
+   
+    <!-- 관리자 상품 조회 -->
+    <select id="goods_list" resultType="admingoods">
+    	select * from goods where goods_inuse=0 order by goods_num asc
+    </select>
+    
+    <!-- 상품등록 -->
+    <insert id="goods_insert" parameterType="admingoods">
+      insert into goods(goods_num,goods_category,goods_name,goods_content,goods_size,goods_color,goods_amount,
+                        goods_price,goods_image,goods_best,goods_date,goods_inuse)
+	     values(goods_no_seq.nextval,#{goods_category},#{goods_name},#{goods_content},#{goods_size},#{goods_color},
+	            #{goods_amount},#{goods_price},#{goods_image},#{goods_best},sysdate,0)
+	              
+    </insert>
+    
+    <!-- 상품정보 가져오기 -->
+    <select id="goods_cont" parameterType="int" resultType="admingoods">
+    	select * from goods where goods_num=#{goods_num} and goods_inuse=0
+    </select>
+    
+    <!-- 상품수정 -->
+    <update id="goods_update" parameterType="admingoods">
+      update goods
+         set goods_category=#{goods_category},
+             goods_name=#{goods_name},
+             goods_content=#{goods_content},
+             goods_size=#{goods_size},
+             goods_color=#{goods_color},
+             goods_amount=#{goods_amount},
+             goods_price=#{goods_price},
+             goods_image=#{goods_image},
+             goods_best=#{goods_best}
+       where goods_num=#{goods_num}
+         and goods_inuse=0
+    </update>
+    
+    <!-- 상품삭제 상품삭제유무(0:사용,1:미사용)-->
+    <update id="goods_delete" parameterType="int">
+    	update goods
+    	   set goods_inuse = 1
+    	 where goods_num=#{goods_num}
+    	   and goods_inuse=0
+       
+    </update>
+   </mapper>
+    
+    

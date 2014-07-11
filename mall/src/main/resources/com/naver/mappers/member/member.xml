@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+   <mapper namespace="Member">
+   <!-- 회원 아이디 검색 -->
+  <select id="find_member" parameterType="member" resultType="member">
+   select * 
+     from member 
+    where member_name=#{member_name}
+      and member_jumin1=#{member_jumin1}
+      and member_jumin2=#{member_jumin2}
+      and member_state=1
+  </select>
+   
+  <!-- 비번 검색 -->
+  <select id="find_pwd" parameterType="member" resultType="member">
+  select * 
+    from member
+   where member_id=#{member_id}
+     and member_name=#{member_name}
+     and member_state=1
+  </select>
+  
+  <!-- 임시비번 수정 -->
+  <update id="pwd_edit" parameterType="member" >
+     update member
+        set member_pwd =#{member_pwd}
+      where member_id=#{member_id}
+        and member_state=1
+  </update>
+
+<!-- 회원체크 -->
+  <select id="member_check" parameterType="member" resultType="int">
+   select count(*)
+     from member
+    where member_id=#{member_id}
+      and member_name=#{member_name}
+      and member_state=1
+  </select>
+  
+  <!-- 우편검색 -->
+	<select id="zip_list" parameterType="String" resultType="zip">
+	 select * from zipcode where dong like #{dong}
+	</select>
+ 
+  <!-- 가입회원 중복체크 -->
+  <select id="id_check" parameterType="String" resultType="member">
+	select * from member where member_id=#{member_id} and member_state=1
+	</select>
+ 
+ <!-- 회원저장 -->
+	<insert id="member_in" parameterType="member">       
+	insert into member(member_id,
+	                   member_pwd,
+	                   member_name,
+	                   member_zip,
+	                   member_zip2,
+	                   member_addr,
+	                   member_addr2,
+ 				       member_phone01,
+ 				       member_phone02,
+ 				       member_phone03,
+ 				       member_emailid,
+ 				       member_emaildomain)
+			    values(#{member_id},
+			    	   #{member_pwd},
+			    	   #{member_name},
+			           #{member_zip},
+			           #{member_zip2},
+			       	   #{member_addr},
+			       	   #{member_addr2},
+			       	   #{member_phone01},
+			       	   #{member_phone02},
+			       	   #{member_phone03},
+			           #{member_emailid},
+			           #{member_emaildomain})		 
+	</insert>
+ 
+
+ <!-- 로그인 인증 -->
+	<select id="login_check" parameterType="String" resultType="member">
+	 select * from member
+	  where member_id=#{login_id} 
+	    and member_state=1
+	</select>
+	
+<!-- 회원 정보 수정 -->
+	<update id="member_edit" parameterType="member">
+	 update member
+	    set member_pwd=#{member_pwd},       
+			member_name=#{member_name},      
+			member_zip=#{member_zip},       
+			member_zip2=#{member_zip2},      
+			member_addr=#{member_addr},      
+			member_addr2=#{member_addr2},     
+			member_phone01=#{member_phone01},   
+			member_phone02=#{member_phone02},   
+			member_phone03=#{member_phone03},   
+			member_emailid=#{member_emailid},   
+			member_emaildomain =#{member_emaildomain}
+	 where member_id=#{member_id}
+	</update>
+	
+	<!-- 회원탈퇴 -->
+	<update id="member_del" parameterType="member" >
+	update member
+	   set member_state=2,
+	       member_delcont=#{member_delcont},
+	       member_deldate=sysdate
+	 where member_id=#{member_id}
+	</update>
+	
+	<!-- 관리자 여부 -->
+	<select id="is_adm" resultType="int">
+	select member_admin
+	  from member
+	 where member_id=#{member_id}
+	   and member_state=1
+	</select>
+     </mapper>
+    
+    

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+   <mapper namespace="Category">
+   
+   <!-- 카테고리  -->
+   <select id="category_list" resultType="category">
+    select categoryname,categorydesc
+      from category 
+     order by no asc
+   </select>
+    
+   <!-- 농도 리스트 -->
+   <select id="level_list" resultType="category">
+   select level_no,level_desc
+     from goods_level
+     order by level_no asc
+   </select> 
+   </mapper>
+    
+    

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+   <mapper namespace="PhoneMail">
+   
+   <!-- 전화국번조회 -->
+   <select id="phone_list" resultType="phonemail">
+    select distinct phone_number from phone order by phone_number asc
+   </select>
+   
+   <!-- email도메인 조회 -->
+   <select id="email_list" resultType="phonemail">
+    select email_domain from email order by no asc
+   </select>
+    
+   </mapper>
+    
+    

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration  
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+    "http://mybatis.org/dtd/mybatis-3-config.dtd"> 
+
+<configuration>
+  <typeAliases>
+  <typeAlias alias="admingoods" type="com.naver.model.GoodsBean"/>
+   <typeAlias alias="basket" type="com.naver.model.BasketBean" />
+   <!-- 이 부분을 자바 언어로 표현하면 
+     com.naver.model.BasketBean basket=new com.naver.model.BbsBean();
+     과 같다. 새로운 객체명 bbs를 만듬. -->
+  <typeAlias alias="goods" type="com.naver.model.GoodsBean"/>
+  <typeAlias alias="member" type="com.naver.model.MemberBean"/>
+  <typeAlias alias="order" type="com.naver.model.OrderBean"/>
+  <typeAlias alias="zip" type="com.naver.model.ZipcodeBean"/>
+  <typeAlias alias="zip2" type="com.naver.model.ZipcodeBean2"/>
+  <typeAlias alias="zipcode" type="com.naver.model.NewzipcodeBean"/>
+  <typeAlias alias="phonemail" type="com.naver.model.PhoneMailBean"/>
+  <typeAlias alias="category" type="com.naver.model.CategoryBean"/>
+  
+  </typeAliases>     
+</configuration>
+

@@ -1,0 +1,14 @@
+@CHARSET "UTF-8";
+#join_t{
+width:960px;
+cellspacitn:0;
+cellpadding:0;
+border:0;
+align:center;	
+}
+#form_t{
+	border: 1 solid black;
+	width: 80%;
+	height: 80%;
+}
+
