@@ -6,10 +6,26 @@
 
 <mapper namespace="Basket">
 
+	<!-- 장바구니 리스트 -->
 	<select id="basket_list" parameterType="String" resultType="basket">
-		select * from basket where basket_member_id =#{member_id}
+		select * 
+		  from
+		 (select a.basket_num basket_num,
+		         b.goods_name goods_name,
+		         a.basket_member_id basket_member_id,
+		         a.basket_goods_num basket_goods_num,
+		         a.basket_goods_amount basket_goods_amount,
+		         b.goods_image  as goods_image,
+		         a.basket_goods_amount * b.goods_price goods_price_amount,
+		         a.basket_date basket_date
+		    from basket a,
+		         goods b  
+		   where a.basket_member_id =#{member_id}
+		     and a.basket_goods_num = b.goods_num
+		  )
 	</select>
 	
+	<!-- 장바구니 상품 -->
 	<select id="basket_item" parameterType="basket" resultType="basket">
 		select * 
 		  from basket 
@@ -17,6 +33,7 @@
 		   and basket_goods_num=#{basket_goods_num}
 	</select>
 	
+	<!-- 장바구니 상품 수량추가 -->
 	<update id="basket_add" parameterType="basket" >
 	   update basket
 	      set basket_goods_amount=basket_goods_amount+#{basket_goods_amount}
@@ -24,6 +41,7 @@
 	      and basket_goods_num=#{basket_goods_num}
 	</update>
 	
+	<!-- 장바구니 상품 신규추가 -->
 	<insert id="basket_ins" parameterType="basket">
 	   insert into basket(basket_num, 
 	                      basket_member_id,
@@ -40,6 +58,12 @@
 	                      #{basket_color}, -->
 	                      sysdate)
 	</insert>
+	
+	<!-- 장바구니 내 해당 상품 삭제 -->
+	<delete id="basket_del" parameterType="int">
+	 delete basket where basket_num=#{basket_num}
+	</delete>
 </mapper>
+    
     
     

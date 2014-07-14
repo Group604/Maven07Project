@@ -208,6 +208,7 @@ public class MemberAction {
 
 			zlist2.add(z2);// 컬렉션에 추가
 		}
+		
 		ModelAndView zm = new ModelAndView("member/zip_find");
 		zm.addObject("zipcodelist", zlist2);
 		zm.addObject("dong", dong);

@@ -172,7 +172,7 @@ function find_check(){
       <input type="text" name="find_name" id="find_name" size="16"  value="${find_name}" class="box"/>
       <input type="submit" value="검색" class="input_b"/>
       </th>
-      
+      <a href="BasketList.do?admin_id=${admin_id}">장바구니
      </tr>
     </table>
    </div>
@@ -184,5 +184,6 @@ function find_check(){
 		</td>
 	</tr>
 	</table>
+	</form>
 </body>
 </html>

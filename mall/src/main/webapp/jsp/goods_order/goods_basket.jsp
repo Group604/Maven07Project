@@ -1,28 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.basket.model.*"%>
-<%@ page import="admin.model.*" %>
-
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
 <title>쇼핑몰</title>
 </head>
 <body>
-<table width="960" cellspacing="0" cellpadding="0" border="0"
-	align="center">
+<table width="960" cellspacing="0" cellpadding="0" border="0" align="center">
 	<tr>
 		<td colspan=2><!-- 장바구니 -->
 		<p align="center">
-		<form action="./OrderStart.or" name="basketform" method="post">
-		<input type="hidden" name="order" value="basket">
+		<form action="./OrderStart.do" name="basketform" method="post"><!-- 주문시작 -->
+		<input type="hidden" name="order" value="basket"><!-- 장바구니에서 주문으로 넘어가는 파라미터 -->
 		<table width="80%">
 			<tr align=center>
-				<td><b>장 바 구 니</b></td>
+				<th><b>장 바 구 니</b></th>
 			</tr>
-		</table>
-		<table width="80%" cellpadding="0" cellspacing="0">
+		
+		<!-- <table width="80%" cellpadding="0" cellspacing="0"> -->
 			<tr height=26 bgcolor="94d7e7">
 				<td height="3" colspan="7" align=right></td>
 			</tr>
@@ -34,47 +30,23 @@
 				<td width="8%"><font size="2">가격</font></td>
 				<td width="8%"><font size="2">취소</font></td>
 			</tr>
-			<c:if test="${!empty bb}">
-			<c:forEach var=list items="${bb}">
-			   ${list.goods_num}<br/>
-			   ${list.goods_name}<br/>
-			   ${list.goods_category}<br/>
-			   ${list.goods_price}<br/>
-			</c:forEach>
-			</c:if>   
-			<%
-			if (basketList != null && basketList.size() != 0) {
-				for (int i = 0; i < basketList.size(); i++) {
-					BasketBean dto = (BasketBean) basketList.get(i);
-					GoodsBean goods=(GoodsBean) goodsList.get(i);
-			%>
-			<tr align="center">
-			<td><font size="2"><%=dto.getBASKET_NUM()%></font></td>
-			<td><font size="2"><img 
-				src="./upload/<%=goods.getGOODS_IMAGE().split(",")[0] %>" 
-				width=50 height=50></font></td>
-			<td><font size="2"><%=goods.getGOODS_NAME()%></font></td>
-			<td><font size="2">
-				<%=dto.getBASKET_GOODS_AMOUNT()%>
-			</font></td>
-			<td><font size="2"><%=goods.getGOODS_PRICE()%></font></td>
-			<td><font size="2">
-			<a href="BasketDel.ba?num=<%=dto.getBASKET_NUM()%>"
-				onclick="return confirm('취소하시겠습니까?')">취소</a>
+			<c:if test="${!empty blist}">
+			<c:forEach var="list" items="${blist}">
+			   <tr>
+			   <td>${list.basket_num}</td>&nbsp;&nbsp;&nbsp;&nbsp;
+			   <td><img src="./upload/${list.goods_image}" width=50 height=50>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			   <td>${list.goods_name}&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			   <td>${list.basket_goods_num}&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			   <td>${list.basket_member_id}&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			   <td>${list.basket_goods_amount}&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			   <td>${list.goods_price_amount}&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			   <td>${list.basket_date}</td>
+			   <td><font size="2">
+				<a href="BasketDel.do?basket_num=${list.basket_num}" onclick="return confirm('취소하시겠습니까?')">취소</a>
 			</font></td>
 			</tr>
-			<%
-				}
-			}else{
-			%>
-			<tr>
-			<td colspan="7" align="center">
-				<font size="2">장바구니에 담긴 상품이 없습니다.</font>
-			</td>
-			</tr>
-			<%
-			}
-			%>
+			   </c:forEach>
+			</c:if>
 		</table>
 		
 		<table width="80%" border="0" cellspacing="0" cellpadding="0">
@@ -87,26 +59,26 @@
 		<table width="80%" cellpadding="0" cellspacing="0">
 			<tr>
 			<td align="center">
-			<%
-			if (basketList != null && basketList.size() != 0) {
-			%>
-			<a href="javascript:basketform.submit()">
-			[구매하기]
-			</a>
-			<%}else{%>
-			<a href="#" onclick="javascript:alert('주문할 상품이 없습니다.')">
-			[구매하기]
-			</a>
-			<%}
-			if (item == null) {%>
-			<a href="./GoodsList.go?item=new_item">
-			[계속 쇼핑하기]</a>
-			<%}else{%>
-			<a href="./GoodsDetail.go?item=<%=item %>
-			&gr_goods_num=<%=gr_goods_num %>
-			&isitem=<%=isitem %>">
-			[계속 쇼핑하기]</a>
-			<%}%>
+			<c:if test="${!empty blist}">
+				<a href="javascript:basketform.submit()">
+				[구매하기]
+				</a>
+			</c:if>
+			<c:if test="${empty blist}">
+				<a href="#" onclick="javascript:alert('주문할 상품이 없습니다.')">
+				[구매하기]
+				</a>
+			</c:if>
+			<c:if test="${empty goods_num}">
+				<a href="./GoodsList.do?page=${page}">
+				[계속 쇼핑하기]
+				</a>
+			</c:if>
+			<c:if test="${!empty goods_num}">
+				<a href="./GoodsDetail.do?goods_num=${goods_num}">
+				 [계속 쇼핑하기]
+				</a>
+			</c:if>
 			</td>
 			</tr>
 		</table>

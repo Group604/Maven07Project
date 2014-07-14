@@ -47,7 +47,7 @@ public class GoodsAction {
 		/*농도 */
 		List<CategoryBean> lvlist=this.categoryService.getLevels();
 		
-		String admin_id = (String) session.getAttribute("admin_id");
+		String admin_id = (String) session.getAttribute("admin_id");/* 장바구니로 이동하기위해서도 사용됨 */
 		
 		if (admin_id == null) {
 			out.println("<script>");

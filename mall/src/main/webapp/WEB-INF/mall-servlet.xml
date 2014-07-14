@@ -71,7 +71,7 @@
 	<bean id="basketAction" class="com.naver.action.BasketAction" p:basketService-ref="basketService" />
 	<bean id="goodsAction" class="com.naver.action.GoodsAction"  p:goodsService-ref="goodsService" p:categoryService-ref="categoryService" />
 	<bean id="memberAction" class="com.naver.action.MemberAction" p:memberService-ref="memberService" p:phonemailService-ref="phonemailService" />
-	<bean id="orderAction" class="com.naver.action.OrderAction"  p:orderService-ref="orderService" />
+	<bean id="orderAction" class="com.naver.action.OrderAction"  p:orderService-ref="orderService" p:goodsService-ref="goodsService" p:basketService-ref="basketService" p:memberService-ref="memberService"/>
 	<!-- 스프링 setter DI 의존관계를 설정하는 부분 -->
 
 	<!-- ViewResolver -->
@@ -87,19 +87,7 @@
 			<value>.jsp</value>
 		</property>
 	</bean>
-	
-	
-	<!-- MethodNameResolver -->
-	<bean id="methodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
-		<property name="mappings">
-			<props>
-				<prop key="/BasketAdd.do">add</prop>
-				<prop key="/BasketList.do">list</prop>
-				<prop key="/BasketDel.do">del</prop>
-			</props>
-		</property>
-	</bean>
-	
+
 	
 	<!-- 파일 업로드 구현을 위한 정의 -->
 	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

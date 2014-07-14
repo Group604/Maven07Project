@@ -4,10 +4,28 @@ public class BasketBean {
 	private int basket_num;
 	private String basket_member_id;
 	private int basket_goods_num;
+	private String goods_name;
 	private int basket_goods_amount;
 	/*private String basket_goods_size;
 	private String basket_goods_color;*/
+	private String goods_image;/*상품이지미 저장용 프로퍼티 */
+	private int goods_price_amount;/* 상품단가×수량 = goods_price_amount */
 	private String basket_date;
+	
+	
+	
+	public int getGoods_price_amount() {
+		return goods_price_amount;
+	}
+	public void setGoods_price_amount(int goods_price_amount) {
+		this.goods_price_amount = goods_price_amount;
+	}
+	public String getGoods_name() {
+		return goods_name;
+	}
+	public void setGoods_name(String goods_name) {
+		this.goods_name = goods_name;
+	}
 	
 	public int getBasket_num() {
 		return basket_num;
@@ -45,11 +63,22 @@ public class BasketBean {
 	public void setBasket_goods_color(String basket_goods_color) {
 		this.basket_goods_color = basket_goods_color;
 	}*/
+	
+	
 	public String getBasket_date() {
 		return basket_date;
 	}
+	
+	
 	public void setBasket_date(String basket_date) {
 		this.basket_date = basket_date;
+	}
+	
+	public String getGoods_image() {
+		return goods_image;
+	}
+	public void setGoods_image(String goods_image) {
+		this.goods_image = goods_image;
 	}
 	
 	

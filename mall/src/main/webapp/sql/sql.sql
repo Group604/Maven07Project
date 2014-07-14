@@ -177,3 +177,66 @@ select * from GOODS where goods_inuse=0;
  
  select * from basket;
  
+ 
+ update basket
+    set basket_goods_image = (select goods_image
+                                from goods
+                               where goods_num=basket.basket_goods_num)
+ where (basket_num,basket_goods_num) =
+ (select basket_num, basket_goods_num,basket_goods_image from 
+  (select a.basket_num basket_num,
+        a.basket_member_id basket_member_id,
+        a.basket_goods_num basket_goods_num,
+        a.basket_goods_amount basket_goods_amount,
+        to_char(b.goods_image) basket_goods_image,
+        a.basket_date basket_date
+   from basket a, goods b 
+  where a.basket_member_id ='hongildong'
+	and a.basket_goods_num = b.goods_num
+      )		   
+)		
+
+update basket a
+   set a.goods_image = (select b.goods_image from goods b where b.goods_num = a.basket_goods_num)
+ ;
+ 
+ insert into basket(basket_num,basket_member_id,basket_goods_num,basket_goods_amount,basket_date)
+     select basket_num,basket_member_id,basket_goods_num,basket_goods_amount,basket_date from basket_tmp
+
+ select * from basket;
+      
+ select * 
+		  from
+		 (select a.basket_num basket_num,
+		         a.basket_member_id basket_member_id,
+		         a.basket_goods_num basket_goods_num,
+		         a.basket_goods_amount basket_goods_amount,
+		         b.goods_image  goods_image,
+		         a.basket_date basket_date
+		    from basket a,
+		         goods b  
+		   where a.basket_member_id ='hongildong'
+		     and a.basket_goods_num = b.goods_num
+		  )
+		  
+/* 칼럼 명 select */	
+select lower(column_name)||',' 
+  from cols
+ where table_name='GOODS_ORDER'
+ order by column_id;
+ 
+ /* 주문 번호(전표) 발번용 sequence */
+ create sequence order_trade_no_seq
+ increment by 1 start with 1000001 nocache 
+ maxvalue 9999999 cycle;
+ 
+ select sysdate||'-'||order_trade_no_seq.nextval from dual;
+ 
+ select to_char(to_date(sysdate,'YYYY-MM-DD')||'-'||order_trade_no_seq.nextval) from dual;
+ 
+ 
+ select lower(column_name)||',' from cols where table_name='GOODS_ORDER' order by column_id;
+ 
+ select * from goods_order;
+ 
+ select * from basket;

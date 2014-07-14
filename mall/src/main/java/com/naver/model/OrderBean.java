@@ -1,154 +1,158 @@
 package com.naver.model;
 
 public class OrderBean {
-	private int ORDER_NUM;
-	private String ORDER_TRADE_NUM;
-	private String 	ORDER_TRANS_NUM;
-	private int 	ORDER_GOODS_NUM;
-	private String  ORDER_GOODS_NAME;
-	private int 	ORDER_GOODS_AMOUNT;
-	private String 	ORDER_GOODS_SIZE;
-	private String 	ORDER_GOODS_COLOR;
-	private String 	ORDER_MEMBER_ID;
-	private String 	ORDER_RECEIVE_NAME;
-	private String 	ORDER_RECEIVE_ADDR1;
-	private String 	ORDER_RECEIVE_ADDR2;
-	private String 	ORDER_RECEIVE_PHONE;
-	private String 	ORDER_RECEIVE_MOBILE;
-	private String 	ORDER_MEMO;
-	private int 	ORDER_SUM_MONEY;
-	private String 	ORDER_TRADE_TYPE;
-	private String 	ORDER_TRADE_DATE;
-	private String 	ORDER_TRADE_PAYER;
-	private String 	ORDER_DATE;
-	private int	ORDER_STATUS;
+	private int order_num; /* 주문순번 */
+	private String order_trade_num;/* 주문번호 (예:20140711-xxxxxx) */
+	private String 	order_trans_num;/* 운송장 */
+	private int 	order_goods_num;/* 주문한 상품 번호 */
+	private String  order_goods_name;/* 주문 상품 이름 */
+	private int 	order_goods_amount;/* 주문 상품 수량 */
+	private String 	order_goods_size;/* 주문 상품 크기 */
+	private String 	order_goods_color;/* 주문 상품 색깔 */
+	private String 	order_member_id;/* 주문자 아이디 */
+	private String 	order_receive_name;/* 수취인 이름 */
+	private String 	order_receive_addr1;/* 수취인 주소1 */
+	private String 	order_receive_addr2;/* 수취인 주소 상세 */
+	private String 	order_receive_phone;/* 수취인 집 전화 */
+	private String 	order_receive_mobile;/* 수취인 휴대폰 */
+	private String 	order_memo;/* 주문 요구사항 */
+	private int 	order_sum_money;/* 주문 합계 금액 */
+	private String 	order_trade_type;/* 결제방법(온라인 입금,카드결제 등...) */
+	private String 	order_trade_date;/* 결제날짜(온라인입금일 경우 입금일자) */
+	private String 	order_trade_payer;/* 입금자명(온라인입금일 경우만 해당) */
+	private String 	order_date;/* 상품 주무일자 */
+	private int	order_status;/*주문상태(0:대기중,1:발송준비,2:발송완료,3:배송중,4:배송완료,5:주문취소) */
+
 	
-	public int getORDER_NUM() {
-		return ORDER_NUM;
+	
+	public int getOrder_num() {
+		return order_num;
 	}
-	public void setORDER_NUM(int oRDER_NUM) {
-		ORDER_NUM = oRDER_NUM;
+	public void setOrder_num(int order_num) {
+		this.order_num = order_num;
 	}
-	public String getORDER_TRADE_NUM() {
-		return ORDER_TRADE_NUM;
+	public String getOrder_trade_num() {
+		return order_trade_num;
 	}
-	public void setORDER_TRADE_NUM(String oRDER_TRADE_NUM) {
-		ORDER_TRADE_NUM = oRDER_TRADE_NUM;
+	public void setOrder_trade_num(String order_trade_num) {
+		this.order_trade_num = order_trade_num;
 	}
-	public String getORDER_TRANS_NUM() {
-		return ORDER_TRANS_NUM;
+	public String getOrder_trans_num() {
+		return order_trans_num;
 	}
-	public void setORDER_TRANS_NUM(String oRDER_TRANS_NUM) {
-		ORDER_TRANS_NUM = oRDER_TRANS_NUM;
+	public void setOrder_trans_num(String order_trans_num) {
+		this.order_trans_num = order_trans_num;
 	}
-	public int getORDER_GOODS_NUM() {
-		return ORDER_GOODS_NUM;
+	public int getOrder_goods_num() {
+		return order_goods_num;
 	}
-	public void setORDER_GOODS_NUM(int oRDER_GOODS_NUM) {
-		ORDER_GOODS_NUM = oRDER_GOODS_NUM;
+	public void setOrder_goods_num(int order_goods_num) {
+		this.order_goods_num = order_goods_num;
 	}
-	public String getORDER_GOODS_NAME() {
-		return ORDER_GOODS_NAME;
+	public String getOrder_goods_name() {
+		return order_goods_name;
 	}
-	public void setORDER_GOODS_NAME(String oRDER_GOODS_NAME) {
-		ORDER_GOODS_NAME = oRDER_GOODS_NAME;
+	public void setOrder_goods_name(String order_goods_name) {
+		this.order_goods_name = order_goods_name;
 	}
-	public int getORDER_GOODS_AMOUNT() {
-		return ORDER_GOODS_AMOUNT;
+	public int getOrder_goods_amount() {
+		return order_goods_amount;
 	}
-	public void setORDER_GOODS_AMOUNT(int oRDER_GOODS_AMOUNT) {
-		ORDER_GOODS_AMOUNT = oRDER_GOODS_AMOUNT;
+	public void setOrder_goods_amount(int order_goods_amount) {
+		this.order_goods_amount = order_goods_amount;
 	}
-	public String getORDER_GOODS_SIZE() {
-		return ORDER_GOODS_SIZE;
+	public String getOrder_goods_size() {
+		return order_goods_size;
 	}
-	public void setORDER_GOODS_SIZE(String oRDER_GOODS_SIZE) {
-		ORDER_GOODS_SIZE = oRDER_GOODS_SIZE;
+	public void setOrder_goods_size(String order_goods_size) {
+		this.order_goods_size = order_goods_size;
 	}
-	public String getORDER_GOODS_COLOR() {
-		return ORDER_GOODS_COLOR;
+	public String getOrder_goods_color() {
+		return order_goods_color;
 	}
-	public void setORDER_GOODS_COLOR(String oRDER_GOODS_COLOR) {
-		ORDER_GOODS_COLOR = oRDER_GOODS_COLOR;
+	public void setOrder_goods_color(String order_goods_color) {
+		this.order_goods_color = order_goods_color;
 	}
-	public String getORDER_MEMBER_ID() {
-		return ORDER_MEMBER_ID;
+	public String getOrder_member_id() {
+		return order_member_id;
 	}
-	public void setORDER_MEMBER_ID(String oRDER_MEMBER_ID) {
-		ORDER_MEMBER_ID = oRDER_MEMBER_ID;
+	public void setOrder_member_id(String order_member_id) {
+		this.order_member_id = order_member_id;
 	}
-	public String getORDER_RECEIVE_NAME() {
-		return ORDER_RECEIVE_NAME;
+	public String getOrder_receive_name() {
+		return order_receive_name;
 	}
-	public void setORDER_RECEIVE_NAME(String oRDER_RECEIVE_NAME) {
-		ORDER_RECEIVE_NAME = oRDER_RECEIVE_NAME;
+	public void setOrder_receive_name(String order_receive_name) {
+		this.order_receive_name = order_receive_name;
 	}
-	public String getORDER_RECEIVE_ADDR1() {
-		return ORDER_RECEIVE_ADDR1;
+	public String getOrder_receive_addr1() {
+		return order_receive_addr1;
 	}
-	public void setORDER_RECEIVE_ADDR1(String oRDER_RECEIVE_ADDR1) {
-		ORDER_RECEIVE_ADDR1 = oRDER_RECEIVE_ADDR1;
+	public void setOrder_receive_addr1(String order_receive_addr1) {
+		this.order_receive_addr1 = order_receive_addr1;
 	}
-	public String getORDER_RECEIVE_ADDR2() {
-		return ORDER_RECEIVE_ADDR2;
+	public String getOrder_receive_addr2() {
+		return order_receive_addr2;
 	}
-	public void setORDER_RECEIVE_ADDR2(String oRDER_RECEIVE_ADDR2) {
-		ORDER_RECEIVE_ADDR2 = oRDER_RECEIVE_ADDR2;
+	public void setOrder_receive_addr2(String order_receive_addr2) {
+		this.order_receive_addr2 = order_receive_addr2;
 	}
-	public String getORDER_RECEIVE_PHONE() {
-		return ORDER_RECEIVE_PHONE;
+	public String getOrder_receive_phone() {
+		return order_receive_phone;
 	}
-	public void setORDER_RECEIVE_PHONE(String oRDER_RECEIVE_PHONE) {
-		ORDER_RECEIVE_PHONE = oRDER_RECEIVE_PHONE;
+	public void setOrder_receive_phone(String order_receive_phone) {
+		this.order_receive_phone = order_receive_phone;
 	}
-	public String getORDER_RECEIVE_MOBILE() {
-		return ORDER_RECEIVE_MOBILE;
+	public String getOrder_receive_mobile() {
+		return order_receive_mobile;
 	}
-	public void setORDER_RECEIVE_MOBILE(String oRDER_RECEIVE_MOBILE) {
-		ORDER_RECEIVE_MOBILE = oRDER_RECEIVE_MOBILE;
+	public void setOrder_receive_mobile(String order_receive_mobile) {
+		this.order_receive_mobile = order_receive_mobile;
 	}
-	public String getORDER_MEMO() {
-		return ORDER_MEMO;
+	public String getOrder_memo() {
+		return order_memo;
 	}
-	public void setORDER_MEMO(String oRDER_MEMO) {
-		ORDER_MEMO = oRDER_MEMO;
+	public void setOrder_memo(String order_memo) {
+		this.order_memo = order_memo;
 	}
-	public int getORDER_SUM_MONEY() {
-		return ORDER_SUM_MONEY;
+	public int getOrder_sum_money() {
+		return order_sum_money;
 	}
-	public void setORDER_SUM_MONEY(int oRDER_SUM_MONEY) {
-		ORDER_SUM_MONEY = oRDER_SUM_MONEY;
+	public void setOrder_sum_money(int order_sum_money) {
+		this.order_sum_money = order_sum_money;
 	}
-	public String getORDER_TRADE_TYPE() {
-		return ORDER_TRADE_TYPE;
+	public String getOrder_trade_type() {
+		return order_trade_type;
 	}
-	public void setORDER_TRADE_TYPE(String oRDER_TRADE_TYPE) {
-		ORDER_TRADE_TYPE = oRDER_TRADE_TYPE;
+	public void setOrder_trade_type(String order_trade_type) {
+		this.order_trade_type = order_trade_type;
 	}
-	public String getORDER_TRADE_DATE() {
-		return ORDER_TRADE_DATE;
+	public String getOrder_trade_date() {
+		return order_trade_date;
 	}
-	public void setORDER_TRADE_DATE(String oRDER_TRADE_DATE) {
-		ORDER_TRADE_DATE = oRDER_TRADE_DATE;
+	public void setOrder_trade_date(String order_trade_date) {
+		this.order_trade_date = order_trade_date;
 	}
-	public String getORDER_TRADE_PAYER() {
-		return ORDER_TRADE_PAYER;
+	public String getOrder_trade_payer() {
+		return order_trade_payer;
 	}
-	public void setORDER_TRADE_PAYER(String oRDER_TRADE_PAYER) {
-		ORDER_TRADE_PAYER = oRDER_TRADE_PAYER;
+	public void setOrder_trade_payer(String order_trade_payer) {
+		this.order_trade_payer = order_trade_payer;
 	}
-	public String getORDER_DATE() {
-		return ORDER_DATE;
+	public String getOrder_date() {
+		return order_date;
 	}
-	public void setORDER_DATE(String oRDER_DATE) {
-		ORDER_DATE = oRDER_DATE;
+	public void setOrder_date(String order_date) {
+		this.order_date = order_date;
 	}
-	public int getORDER_STATUS() {
-		return ORDER_STATUS;
+	public int getOrder_status() {
+		return order_status;
 	}
-	public void setORDER_STATUS(int oRDER_STATUS) {
-		ORDER_STATUS = oRDER_STATUS;
+	public void setOrder_status(int order_status) {
+		this.order_status = order_status;
 	}
+	
+	
 	
 	
 }

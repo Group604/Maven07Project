@@ -5,8 +5,63 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
    <mapper namespace="Order">
-   
     
+    <!-- 주문예정 상품 수 -->
+    <select id="order_cnt" parameterType="String" resultType="int">
+    select count(*) from goods_order where order_member_id=#{member_id} 
+    </select>
+    
+    <!-- 주문상품 리스트 가져오기 -->
+    <select id="order_list" parameterType="String" resultType="order">
+     select * from goods_order where order_member_id=#{member_id}
+    </select>
+    
+    <!-- 회원 주문 추가 -->
+    <insert id="oder_ins" parameterType="order">
+     insert into order( order_num, 
+                        order_trade_num, 
+                        order_trans_num, 
+                        order_goods_num,
+ 						order_goods_name,
+ 						order_goods_amount,
+ 						order_goods_size, 
+ 						order_goods_color,
+ 						order_member_id,
+ 						order_receive_name,
+ 						order_receive_addr1,
+ 						order_receive_addr2,
+ 						order_receive_phone,
+ 						order_receive_mobile,
+ 						order_memo,
+ 						order_sum_money,
+ 						order_trade_type, 
+ 						order_trade_date,
+ 						order_trade_payer, 
+ 						order_date,
+ 						order_status 
+ 						)
+ 		 values(goodsorder_no_seq.nextval,
+ 		        sysdate||'-'||order_trade_no_seq.nextval,
+ 		        null,
+ 		        #{order_goods_num},     
+				#{order_goods_name},    
+				#{order_goods_amount},  
+				#{order_goods_size},    
+				#{order_goods_color},   
+				#{order_member_id},     
+				#{order_receive_name},  
+				#{order_receive_addr1}, 
+				#{order_receive_addr2}, 
+				#{order_receive_phone}, 
+				#{order_receive_mobile},
+				#{order_memo},          
+				#{order_sum_money},     
+				#{order_trade_type},    
+				#{order_trade_date},    
+				#{order_trade_payer},   
+				sysdate,          
+				0 )
+    </insert>
    </mapper>
     
     

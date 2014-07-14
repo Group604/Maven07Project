@@ -1,16 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.order.*,com.order.model.*"%>
-<%
-	String id=(String)session.getAttribute("id");
-	List goods_order_list=(List)request.getAttribute("goods_order_list");
-	int ordercount=((Integer)request.getAttribute("ordercount")).intValue();
-	int nowpage=((Integer)request.getAttribute("page")).intValue();
-	int maxpage=((Integer)request.getAttribute("maxpage")).intValue();
-	int startpage=((Integer)request.getAttribute("startpage")).intValue();
-	int endpage=((Integer)request.getAttribute("endpage")).intValue();
-	int totalmoney=((Integer)request.getAttribute("totalmoney")).intValue();
-%>
+
 <html>
 <head>
 <title>쇼핑몰</title>

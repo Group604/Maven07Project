@@ -13,7 +13,7 @@ function isBuy(goodsform) {
 		
 	var isbuy=confirm("구매하시겠습니까?");
 	if(isbuy==true) {
-		goodsform.action="OrderStart.do";
+		goodsform.action="OrderStart.do?order=goods&amount="+amount;
 		goodsform.submit();
 	} else {
 		return;
@@ -51,7 +51,7 @@ function count_change(temp){
 	<tr>
 		<td colspan=2 align=center><!-- 상품 내용 -->
 		<form name="goodsform" action="#" method="post">
-	
+	    <input type="hidden" name="goods_num" value="${gb.goods_num}">
 		<table width="600" border="0" align="center">
 		<tr>
 			<td height="60" colspan="2">상 세 보 기</td>

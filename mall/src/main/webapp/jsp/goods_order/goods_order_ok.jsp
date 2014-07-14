@@ -43,7 +43,7 @@
 	<tr align="center">
 	<th>
 	<td>
-	<input type="button" name="ordList" value="주문내역" onclick="location.href='./OrderList.or'"/>
+	<input type="button" name="ordList" value="주문내역" onclick="location.href='./OrderList.do'"/>
 	</td>
 	</tr>
 </table>

@@ -1,25 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.member.*,com.member.model.*"%>
-<%@ page import="com.basket.*,com.basket.model.*"%>
-<%@ page import="com.goods.*,com.goods.model.*" %>
-<%@ page import="admin.model.*" %>
-<%
-	MemberBean member = (MemberBean) request.getAttribute("member");
-	String ordertype = (String) request.getAttribute("ordertype");
-	List orderinfo = null;
-	List basketlist = null;
-	List goodslist=null;
-	
-	if (ordertype.equals("goods")) {
-		orderinfo = (ArrayList) request.getAttribute("orderinfo");
-	} else {
-		basketlist = (ArrayList) request.getAttribute("basketlist");
-		goodslist = (ArrayList) request.getAttribute("goodslist");
-	}
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
+<script src="./js/jquery.js"></script>
+<script src="./js/member.js"></script>
 <title>쇼핑몰</title>
 </head>
 <body>
@@ -28,18 +14,18 @@
 <tr>
 	<td colspan=2 align=right>
 	<!-- 주문 페이지 -->
-	<form action="./OrderAdd.or" method="post" name="orderform">
-	<input type="hidden" name="ordertype" value="<%=ordertype%>"> 
-	<%if (ordertype.equals("goods")) {%>
-	<input type="hidden" name="goodsnum" value="<%=orderinfo.get(0)%>">
-	<input type="hidden" name="goodsname" value="<%=orderinfo.get(1)%>">
-	<input type="hidden" name="goodsamount" value="<%=orderinfo.get(2)%>">
-	<input type="hidden" name="goodscolor" value="<%=orderinfo.get(3)%>">
-	<input type="hidden" name="goodssize" value="<%=orderinfo.get(4)%>">
-	<input type="hidden" name="goodsprice" value="<%=orderinfo.get(5)%>">
-	<%}%>
-	<input type="hidden" name="memberid" value="<%=member.getMEMBER_ID() %>">
+	<form name="m" action="./OrderAdd.do" method="post" >
+	<input type="hidden" name="ordertype" value="${ordertype}">
+	 <c:if test="${ordertype.equals('goods')}">
+	<input type="hidden" name="goods_num" value="${goods_info.goods_num}">
+	<input type="hidden" name="goods_name" value="${goods_info.goods_name}">
+	<input type="hidden" name="goods_amount" value="${goods_info.goods_amount}">
+	<input type="hidden" name="goods_color" value="${goods_info.goods_color}">
+	<input type="hidden" name="goods_size" value="${goods_info.goods_size}">
+	<input type="hidden" name="goods_price" value="${goods_info.goods_price}">
+	</c:if>
 	
+	<input type="hidden" name="member_id" value="${member_id}">
 	<!-- 주문 상세내역 -->
 	<table border=0 cellspacing=1 cellpadding=0 width=80%>
 		<tr>
@@ -56,55 +42,50 @@
 		<tr>
 			<td style="background-color: #F0F0F0; height: 1px;" colspan=6>
 		</tr>
-		<%
-			if (ordertype.equals("goods")) {
-		%>
+		<c:if test="${ordertype.equals('goods')}">
 		<tr align=center height=20>
 		<td style="font-family: Tahoma; font-size: 7pt;"><img
-			src="./upload/<%=orderinfo.get(6) %>" width=50 height=50></td>
-		<td style="font-family: Tahoma; font-size: 8pt;"><%=orderinfo.get(1)%></td>
-		<td style="font-family: Tahoma; font-size: 8pt;"><%=orderinfo.get(2)%></td>
-		<td style="font-family: Tahoma; font-size: 8pt;"><%=orderinfo.get(3)%></td>
-		<td style="font-family: Tahoma; font-size: 8pt;"><%=orderinfo.get(4)%></td>
-		<td style="font-family: Tahoma; font-size: 8pt;"><%=orderinfo.get(5)%></td>
+			src="./upload${goods_info.goods_image}" width=50 height=50></td>
+	    <td style="font-family: Tahoma; font-size: 7pt;">${goods_info.goods_name}</td>
+	    <td style="font-family: Tahoma; font-size: 7pt;">${goods_info.goods_amount}</td>
+	    <td style="font-family: Tahoma; font-size: 7pt;">${goods_info.goods_color}</td>
+	    <td style="font-family: Tahoma; font-size: 7pt;">${goods_info.goods_size }</td>
+	    <td style="font-family: Tahoma; font-size: 7pt;">${goods_info.goods_price}</td>
 		</tr>
 		<tr>
 			<td style="background-color: #F0F0F0; height: 1px;" colspan=6>
 		</tr>
-		<%
-			} else {
-				for (int i = 0; i < basketlist.size(); i++) {
-					BasketBean basket = (BasketBean) basketlist.get(i);
-					GoodsBean goods = (GoodsBean) goodslist.get(i);
-		%>
+		</c:if>
+		
+		<c:if test="${ordertype.equals('basket')}">
+		<c:forEach var="list" items="${basketlist}">
+		
+
 		<tr align=center height=20>
 		<td style="font-family: Tahoma; font-size: 7pt;">
-			<img src="./upload/<%=goods.getGOODS_IMAGE().split(",")[0] %>" 
-				width=50 height=50>
+			<img src="./upload/"${goods_image}" width=50 height=50>
 		</td>
 		<td style="font-family: Tahoma; font-size: 8pt;">
-			<%=goods.getGOODS_NAME()%>
+			${goods_name}
 		</td>
 		<td style="font-family: Tahoma; font-size: 8pt;">
-			<%=basket.getBASKET_GOODS_AMOUNT()%>
+			${basket_goods_amount}
 		</td>
 		<td style="font-family: Tahoma; font-size: 8pt;">
-			<%=basket.getBASKET_GOODS_COLOR()%>
+			${bakset_goods_color}
 		</td>
 		<td style="font-family: Tahoma; font-size: 8pt;">
-			<%=basket.getBASKET_GOODS_SIZE()%>
+			${basket_goods_size}
 		</td>
 		<td style="font-family: Tahoma; font-size: 8pt;">
-			<%=goods.getGOODS_PRICE()%>
+			${basket_goods_price}
 		</td>
 		</tr>
 		<tr>
 			<td style="background-color: #F0F0F0; height: 1px;" colspan=6>
 		</tr>
-		<%
-				}
-			}
-		%>
+		</c:forEach>
+		</c:if>
 	</table>
 
 	<table width=80% border=0 cellpadding="0" cellspacing="1">
@@ -120,30 +101,27 @@
 			<td><b><font size=2>주문자 정보</font></b></td>
 		</tr>
 		<tr>
-			<td style="font-family: Tahoma; font-size: 8pt;" width=80 height=24
-				bgcolor="f7f7f7">이름</td>
+			<td style="font-family: Tahoma; font-size: 8pt;" width=80 height=24 bgcolor="f7f7f7">이름</td>
 			<td width=320 height=24>
-				<font size=2><%=member.getMEMBER_NAME()%></font>
+				<font size=2>${member.member_name}</font>
 			</td>
 		</tr>
 		<tr>
 			<td style="background-color: #F0F0F0; height: 1px;" colspan=6>
 		</tr>
 		<tr>
-			<td style="font-family: Tahoma; font-size: 8pt;" height=24
-				bgcolor="f7f7f7">휴대폰</td>
+			<td style="font-family: Tahoma; font-size: 8pt;" height=24 bgcolor="f7f7f7">휴대폰</td>
 			<td width=320 height=24>
-				<font size=2><%=member.getMEMBER_MOBILE()%></font>
+				<font size=2>${member.member_phone01}-${member.member_phone02}-${member.member_phone03}</font>
 			</td>
 		</tr>
 		<tr>
 			<td style="background-color: #F0F0F0; height: 1px;" colspan=6>
 		</tr>
 		<tr>
-			<td style="font-family: Tahoma; font-size: 8pt;" height=24
-				bgcolor="f7f7f7">이메일 주소</td>
+			<td style="font-family: Tahoma; font-size: 8pt;" height=24 bgcolor="f7f7f7">이메일 주소</td>
 			<td width=320 height=24>
-				<font size=2><%=member.getMEMBER_EMAIL()%></font>
+				<font size=2>${member.member_emailid}@${member.member_emaildomain}</font>
 			</td>
 		</tr>
 		<tr>
@@ -164,75 +142,50 @@
 			<td><b><font size=2>배송지 정보</font></b></td>
 		</tr>
 		<tr height=20>
-			<td style="font-family: Tahoma; font-size: 8pt;" width=130 height=24
-				bgcolor="f7f7f7">받는사람</td>
+			<td style="font-family: Tahoma; font-size: 8pt;" width=130 height=24 bgcolor="f7f7f7">받는사람</td>
 			<td style="font-family: Tahoma; font-size: 8pt;">
-				<input type="text" name="ORDER_RECEIVE_NAME" size=12
-				value="<%=member.getMEMBER_NAME() %>">
+				<input type="text" name="order_rceive_name" size=12 value="${member.member_name}">
 			</td>
 		</tr>
 		<tr>
 			<td style="background-color: #F0F0F0; height: 1px;" colspan=6>
 		</tr>
-		<tr height=23>
-			<td style="font-family: Tahoma; font-size: 8pt;" width=130 height=24
-				bgcolor="f7f7f7">집 전화</td>
-			<td style="font-family: Tahoma; font-size: 8pt;">
-				<input type="text" name="ORDER_RECEIVE_PHONE" size=15
-				value="<%=member.getMEMBER_PHONE() %>">
-			</td>
+
+		<tr>
+			<td style="background-color: #F0F0F0; height: 1px;" colspan=6>
 		</tr>
+		
+		<tr>
+					<th>우편번호</th>
+					<td>
+					<input name="member_zip" id="join_zip" size="3" maxlength="3" value="${member.member_zip}" onclick="post_search();" />-
+					<input name="member_zip2" id="join_zip2" size="3" maxlength="3" value="${member.member_zip2}" class="box" onclick="post_search();" /> 
+					<input type="button" value="우편검색"class="input_b" onclick="post_check();" /></td>
+				</tr>
+				<tr>
+					<th>주소</th>
+					<td><input name="member_addr" id="join_addr" size="40" class="box" value="${member.member_addr}"/></td>
+				</tr>
+				<tr>
+					<th>나머지 주소</th>
+					<td><input name="member_addr2" id="join_addr2" size="36" class="box" value="${member.member_addr2}"/></td>
+				</tr>
+			<tr>
+				<td style="background-color: #F0F0F0; height: 1px;" colspan=6>
+			</tr>
+			<tr>
+				<td style="font-family: Tahoma; font-size: 8pt;" height=24 bgcolor="f7f7f7">연락처</td>
+					<td style="font-family: Tahoma; font-size: 8pt;"><input name="order_receive_mobile" value="${member.member_phone01}-${member.member_phone02}-${member.member_phone03}">
+				</td>
+			</tr>	
+
 		<tr>
 			<td style="background-color: #F0F0F0; height: 1px;" colspan=6>
 		</tr>
 		<tr height=20>
-			<td style="font-family: Tahoma; font-size: 8pt;" width=130 height=24
-				bgcolor="f7f7f7">휴대폰</td>
+			<td style="font-family: Tahoma; font-size: 8pt;" width=130 height=24 bgcolor="f7f7f7">기타 요구사항</td>
 			<td style="font-family: Tahoma; font-size: 8pt;">
-				<input type="text" name="ORDER_RECEIVE_MOBILE" size=15
-				value="<%=member.getMEMBER_MOBILE() %>">
-			</td>
-		</tr>
-		<tr>
-			<td style="background-color: #F0F0F0; height: 1px;" colspan=6>
-		</tr>
-		<tr height=20>
-			<td style="font-family: Tahoma; font-size: 8pt;" width=130 height=24
-				bgcolor="f7f7f7">배송지 우편번호</td>
-			<td style="font-family: Tahoma; font-size: 8pt;">
-				<input type="text" name="ORDER_RECEIVE_ZIPCODE" size=7
-				value="<%=member.getMEMBER_ZIPCODE() %>">
-			</td>
-		</tr>
-		<tr>
-			<td style="background-color: #F0F0F0; height: 1px;" colspan=6>
-		</tr>
-		<tr height=20>
-			<td style="font-family: Tahoma; font-size: 8pt;" width=130 height=24
-				bgcolor="f7f7f7">배송지 주소</td>
-			<td style="font-family: Tahoma; font-size: 8pt;">
-				<input type="text" name="ORDER_RECEIVE_ADDR1" size=50
-				value="<%=member.getMEMBER_ADDR1() %>"></td>
-		</tr>
-		<tr>
-			<td style="background-color: #F0F0F0; height: 1px;" colspan=6>
-		</tr>
-		<tr height=20>
-			<td style="font-family: Tahoma; font-size: 8pt;" width=130 height=24
-				bgcolor="f7f7f7">배송지 나머지 주소</td>
-			<td style="font-family: Tahoma; font-size: 8pt;">
-				<input type="text" name="ORDER_RECEIVE_ADDR2" size=50
-				value="<%=member.getMEMBER_ADDR2() %>">
-			</td>
-		</tr>
-		<tr>
-			<td style="background-color: #F0F0F0; height: 1px;" colspan=6>
-		</tr>
-		<tr height=20>
-			<td style="font-family: Tahoma; font-size: 8pt;" width=130 height=24
-				bgcolor="f7f7f7">기타 요구사항</td>
-			<td style="font-family: Tahoma; font-size: 8pt;">
-			<textarea name="ORDER_MEMO" cols=60 rows=12></textarea>
+			<textarea name="order_memo" cols=60 rows=12></textarea>
 			</td>
 		</tr>
 		<tr>
@@ -253,11 +206,10 @@
 			<td><b><font size=2>결제 정보</font></b></td>
 		</tr>
 		<tr>
-			<td style="font-family: Tahoma; font-size: 8pt;" width=200 height=24
-				bgcolor="f7f7f7">입금자명(온라인입금일 경우) :</td>
+			<td style="font-family: Tahoma; font-size: 8pt;" width=200 height=24 bgcolor="f7f7f7">입금자명(온라인입금일 경우) :</td>
 			<td width=320 height=24>
-			<input type="text" name="ORDER_TRADE_PAYER"
-				size=20 value="<%=member.getMEMBER_NAME() %>">
+			<input type="text" name="order_trade_payer"
+				size=20 value="${member.member_name}">
 			</td>
 		</tr>
 		<tr>
