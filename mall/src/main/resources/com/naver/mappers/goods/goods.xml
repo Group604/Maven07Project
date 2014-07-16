@@ -9,19 +9,25 @@
 	<select id="goods_count" parameterType="goods" resultType="int">
 		select count(goods_num) from goods
         <where> 
-        <if test="find_category==null">
+		<if test="find_level == 0"></if>
+		<if test="find_level != 0">
+        goods_level =#{find_level}
+		</if>
+         <if test="find_category == null">
         </if>
-        <if test="find_category !=null">
-         <if test="find_category =='ALL'"></if>
-         <if test="find_category !='ALL'">
-        goods_category like #{find_category}
+        <if test="find_category =='%ALL%'">
         </if>
-        </if>
-        <if test="find_level==0"></if>
-        <if test="find_level!=0">
-        and goods_level =#{find_level}
-        </if>
-		 and goods_inuse=0
+         <if test="find_category !='%ALL%'">
+         and goods_category like #{find_category}  
+         </if>
+         <if test="find_name == null"></if>
+         <if test="find_name!=null"> 
+         <if test="find_name == '%ALL%'"></if>
+         <if test="find_name != '%ALL%'">
+         and goods_name like #{find_name}
+          </if>
+     	</if> 
+		and goods_inuse=0
       </where>
 	</select>
 
@@ -42,19 +48,26 @@
 		from
 		(select * from goods
 		<where> 
-        <if test="find_category==null">
+		<if test="find_level == 0"></if>
+		<if test="find_level != 0">
+        goods_level =#{find_level}
+		</if>
+         <if test="find_category == null">
         </if>
-        <if test="find_category !=null">
-        <if test="find_category =='ALL'"></if>
-         <if test="find_category !='ALL'">
-        goods_category like #{find_category}
+        <if test="find_category =='%ALL%'">
         </if>
-        </if>
-        <if test="find_level==0"></if>
-        <if test="find_level!=0">
-        and goods_level =#{find_level}
-        </if>
-		 and goods_inuse=0
+         <if test="find_category !='%ALL%'">
+         and goods_category like #{find_category}  
+         </if>
+         <if test="find_name == null"></if>
+         <if test="find_name!=null"> 
+         <if test="find_name == '%ALL%'"></if>
+         <if test="find_name != '%ALL%'">
+         and goods_name like #{find_name}
+          </if>
+         
+     	</if> 
+		and goods_inuse=0
       </where>
 		 order by goods_num desc))
 		where rNum &gt; #{startrow} and rNum&lt;#{endrow}

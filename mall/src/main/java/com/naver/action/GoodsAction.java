@@ -56,7 +56,6 @@ public class GoodsAction {
 			out.println("</script>");
 		} else {
 		
-		 
 			int page = 1;
 			int limit = 5;
 
@@ -67,26 +66,24 @@ public class GoodsAction {
 			if (request.getParameter("find_name") != null) {
 				find_name = request.getParameter("find_name").trim();
 				find_name = new String(find_name.getBytes("ISO-8859-1"),"utf-8");
+				
+				if(find_name.length()==0) {
+					gb.setFind_name("%"+"ALL"+"%");
+				}else{
+				gb.setFind_name("%" + find_name + "%");
+				}
 			}
+
 			find_category = request.getParameter("find_category");
-			//find_level = Integer.parseInt(request.getParameter("find_level"));
-			System.out.println(find_category);
-			System.out.println(request.getParameter("find_level"));
-			
-			if(request.getParameter("find_level")==null) find_level=0;
 			if(find_category==null||find_category=="ALL"){
 				gb.setFind_category("%");
 			}else{	
 				gb.setFind_category("%"+find_category+"%");
 			}
 			
-			
+			if(request.getParameter("find_level")==null) find_level=0;
 			gb.setFind_level(find_level);
 			
-			gb.setFind_name("%" + find_name + "%");
-			System.out.println("gb.setFind_category(find_category):"+gb.getFind_category());
-			System.out.println("gb.setFind_level( find_level ):"+gb.getFind_level());
-
 			if (request.getParameter("page") != null) {
 				page = Integer.parseInt(request.getParameter("page"));
 			}
@@ -107,13 +104,19 @@ public class GoodsAction {
 																		// 올림
 																		// 처리.
 			// 현재 페이지에 보여줄 시작 페이지 수(1, 11, 21 등...)
-			int startpage = (((int) ((double) page / 10 + 0.9)) - 1) * 10 + 1;
+			int startpage = (((int) ((double) page / 5 + 0.9)) - 1) * 5 + 1;
 			// 현재 페이지에 보여줄 마지막 페이지 수.(10, 20, 30 등...)
 			int endpage = maxpage;
 
-			if (endpage > startpage + 10 - 1)
-				endpage = startpage + 10 - 1;
+			if (endpage > startpage + 5 - 1)
+				endpage = startpage + 5 - 1;
 
+			System.out.println("startrow:"+gb.getStartrow());
+			System.out.println("endrow:"+gb.getEndrow());
+			System.out.println("maxpage:"+maxpage);
+			System.out.println("startpage:"+startpage);
+			System.out.println("endpage:"+endpage);
+			
 			listM.addAttribute("glist", glist);
 			listM.addAttribute("clist",clist);//카테고리
 			listM.addAttribute("lvlist",lvlist);//농도			
@@ -172,20 +175,7 @@ public class GoodsAction {
 		request.setAttribute("clist",clist );
 		request.setAttribute("vlist", lvlist);
 		
-		/*
-		<input type="hidden" name="goods_num" value="${glist.goods_num }">
-		<input type="hidden" name="item" value="${glist.goods_num}"> 
-		<input type="hidden" name="goods_num" value="${glist.goods_num}">
-		<%-- <input type="hidden" name="isitem" 	value="<%=request.getParameter("isitem") %>"> --%>
-		<input type="hidden" name="order" value="goods">
-		<input type="hidden" name="price" value="${glist.goods_price}">
-		<input type="hidden" name="goodsname" value="${glist.goods_name}"> 
-		<input type="hidden" name="goodsimage" value="${fn:trim(mainImage)}">
-	*/	
 		
-	//GoodsBean itemArray = (GoodsBean) request.getAttribute("itemArray");
-	/*GoodsBean prevpage = (GoodsBean) request.getAttribute("prevpage");
-	GoodsBean nextpage = (GoodsBean) request.getAttribute("nextpage");*/
 		}
      return "goods/goods_detail";	
 	}	

@@ -7,15 +7,15 @@
 <title>쇼핑몰</title>
 <script type="text/javascript" src="./js/jquery.js"></script>
 <script>
-function searchCategory(searchCategory,level) {
-	if (level!="all") {
-		window.location.href="GoodsList.do?category="+searchCategory+"&page=1&level="+level;
+function searchCategory(find_category,find_level,find_name) {
+	if (find_level!="0") {
+		window.location.href="GoodsList.do?category="+find_category+"&page=1&level="+find_level+"&find_name="+find_name;
 	} else {
-		window.location.href="GoodsList.do?category="+searchCategory+"&page=1";
+		window.location.href="GoodsList.do?category="+find_category+"&page=1"+"&find_name="+find_name;
 	}
 }
 </script>
-<script>
+<!-- <script>
 function find_check(){
 	 if($.trim($("#find_name").val())==""){
 		 alert("검색어를 입력하세요!");
@@ -24,10 +24,10 @@ function find_check(){
 	 }
 }
 
-</script>
+</script> -->
 </head>
 <body>	
-<form action="GoodsList.do" onsubmit="return find_check();">	
+<form action="GoodsList.do" >	
 	<table width="960" align="center">
 	<tr>
 	<td colspan=2>
@@ -58,23 +58,7 @@ function find_check(){
 				</a>
 				<br/><b>${item.goods_price}원</b>
 				</div>
-				<%-- </c:if> --%>
 				
-				<%-- <c:if test="${empty category}">카테고리 검색어 선택
-				  <c:if test="${empty level}">농도 검색어 null(즉, 전체)
-					<a href="GoodsDetail.go?goods_category=${item.goods_category}&goods_level=${item.goods_level}">
-					</a>
-					</c:if>
-				<c:if test="${!empty level}">농도 선택시
-					<a href="GoodsDetail.go?goods_category=${item.goods_category}&goods_level=${item.goods_level}">
-					</a>
-				</c:if>
-			 	<img src="./upload/${fn:trim(item.goods_image)}" width="130" height="130" border="0"/>이미지 파일
-			 	<br/>${item.goods_name}<br/>
-				</a>
-				<br/><b>${item.goods_price}원</b>
-				</div>
-				</c:if> --%>
 				<br>
 				</td>
 				</c:forEach>
@@ -158,12 +142,12 @@ function find_check(){
     <table id="list_f">
      <tr>
       <th>카테고리:
-      <select name="find_category" size="1">
+      <select name="find_category" id="find_category" size="1">
       	 <c:forEach var="ls" items="${clist}">
 			<option value="${ls.categoryname}">${ls.categorydesc}</option>
 		 </c:forEach>
 	   </select>농도:
-      <select name="find_level" size="1">
+      <select name="find_level" id="find_level" size="1">
 		 <c:forEach var="lv" items="${lvlist}">
 		    <option value="${lv.level_no}">${lv.level_desc}</option>
 		</c:forEach>

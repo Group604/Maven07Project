@@ -17,7 +17,7 @@
     </select>
     
     <!-- 회원 주문 추가 -->
-    <insert id="oder_ins" parameterType="order">
+    <insert id="oder_ins" parameterType="java.util.List">
      insert into order( order_num, 
                         order_trade_num, 
                         order_trans_num, 
@@ -40,10 +40,12 @@
  						order_date,
  						order_status 
  						)
- 		 values(goodsorder_no_seq.nextval,
+ 		 values
+ 		 <foreach collection="list" item="item" index="index" open="(" close=")" separator="),(">
+ 		 (goodsorder_no_seq.nextval,
  		        sysdate||'-'||order_trade_no_seq.nextval,
  		        null,
- 		        #{order_goods_num},     
+ 		        <!-- #{order_goods_num.},     
 				#{order_goods_name},    
 				#{order_goods_amount},  
 				#{order_goods_size},    
@@ -58,10 +60,107 @@
 				#{order_sum_money},     
 				#{order_trade_type},    
 				#{order_trade_date},    
-				#{order_trade_payer},   
+				#{order_trade_payer},    -->
+				#{parm.val1},
+				#{parm.val2},
+				#{parm.val3},
+				#{parm.val4},
+				#{parm.val5},
+				#{parm.val6},
+				#{parm.val7},
+				#{parm.val8},
+				#{parm.val9},
+				#{parm.val10},
+				#{parm.val11},
+				#{parm.val12},
+				#{parm.val13},
+				#{parm.val14},
+				#{parm.val15},
+				#{parm.val16},
 				sysdate,          
-				0 )
-    </insert>
+				0 
+				</foreach>
+		</insert>
+		
+		<insert id="order_test" parameterType="basket">
+		 	  insert into basket_tmp(basket_num, 
+	                      basket_member_id,
+	                      basket_goods_num,
+	                      basket_goods_amount,
+	                      basket_date)
+	               values
+	                (basket_no_seq.nextval,
+	                #{basket_member_id},
+	                #{basket_goods_num},
+	                #{basket_amount},
+	                sysdate)
+		</insert>
+		
+		
+		<insert id="test" parameterType="basket">
+		insert into basket_tmp(basket_num, 
+	                      basket_member_id,
+	                      basket_goods_num,
+	                      basket_goods_amount,
+	                      basket_date)
+	               values
+	                (basket_no_seq.nextval,
+	                #{basket_member_id},
+	                #{basket_goods_num},
+	                #{basket_goods_amount},
+	                sysdate)
+		</insert>
+
+          <insert id="oist" parameterType="order">
+          insert into goods_order( order_num, 
+                        order_trade_num, 
+                        order_goods_num,
+ 						order_goods_name,
+ 						order_goods_amount,
+ 						order_goods_size, 
+ 						order_goods_color,
+ 						order_member_id,
+ 						order_receive_name,
+ 						order_receive_addr1,
+ 						order_receive_addr2,
+ 						order_receive_phone,
+ 						order_receive_mobile,
+ 						order_memo,
+ 						order_sum_money, 
+ 						order_trade_type,
+ 						order_trade_date,
+ 						order_trade_payer,
+ 						order_date,
+ 						order_status 
+ 						)
+ 		 values
+ 		 (goodsorder_no_seq.nextval,
+ 		       sysdate||'-'||order_trade_no_seq.nextval,
+ 		        #{order_goods_num},     
+				#{order_goods_name},    
+				#{order_goods_amount},  
+				#{order_goods_size},    
+				#{order_goods_color},   
+				#{order_member_id},     
+				#{order_receive_name},  
+			    #{order_receive_addr1}, 
+				#{order_receive_addr2}, 
+				#{order_receive_phone},
+				#{order_receive_mobile},
+				#{order_memo},          
+				#{order_sum_money},    
+				#{order_trade_type},     
+				sysdate,    
+				#{order_trade_payer},
+				sysdate,          
+				0 
+			)          
+          </insert>
+          
+          
+       <select id="order_stat" resultType="map">
+         select stat_no,stat_desc from order_stat order by stat_no
+       </select>   
    </mapper>
     
     

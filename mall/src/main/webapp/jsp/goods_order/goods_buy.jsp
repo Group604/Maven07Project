@@ -14,7 +14,7 @@
 <tr>
 	<td colspan=2 align=right>
 	<!-- 주문 페이지 -->
-	<form name="m" action="./OrderAdd.do" method="post" >
+	<form name="m" action="./OrderAdd.do" method="post"  >
 	<input type="hidden" name="ordertype" value="${ordertype}">
 	 <c:if test="${ordertype.equals('goods')}">
 	<input type="hidden" name="goods_num" value="${goods_info.goods_num}">
@@ -43,41 +43,42 @@
 			<td style="background-color: #F0F0F0; height: 1px;" colspan=6>
 		</tr>
 		<c:if test="${ordertype.equals('goods')}">
+		<c:forEach var="list" items="${basketlist}">
 		<tr align=center height=20>
 		<td style="font-family: Tahoma; font-size: 7pt;"><img
-			src="./upload${goods_info.goods_image}" width=50 height=50></td>
-	    <td style="font-family: Tahoma; font-size: 7pt;">${goods_info.goods_name}</td>
-	    <td style="font-family: Tahoma; font-size: 7pt;">${goods_info.goods_amount}</td>
-	    <td style="font-family: Tahoma; font-size: 7pt;">${goods_info.goods_color}</td>
-	    <td style="font-family: Tahoma; font-size: 7pt;">${goods_info.goods_size }</td>
-	    <td style="font-family: Tahoma; font-size: 7pt;">${goods_info.goods_price}</td>
+			src="./upload${list.goods_image}" width=50 height=50></td>
+	    <td style="font-family: Tahoma; font-size: 7pt;">${list.goods_name}</td>
+	    <td style="font-family: Tahoma; font-size: 7pt;">${list.basket_goods_amount}</td>
+	    <td style="font-family: Tahoma; font-size: 7pt;">${list.goods_image}</td>
+	    <td style="font-family: Tahoma; font-size: 7pt;">${list.basket_goods_num}</td>
+	    <td style="font-family: Tahoma; font-size: 7pt;">${list.goods_price_amount}</td>
 		</tr>
 		<tr>
 			<td style="background-color: #F0F0F0; height: 1px;" colspan=6>
 		</tr>
+		</c:forEach>
 		</c:if>
 		
 		<c:if test="${ordertype.equals('basket')}">
 		<c:forEach var="list" items="${basketlist}">
 		
-
 		<tr align=center height=20>
 		<td style="font-family: Tahoma; font-size: 7pt;">
-			<img src="./upload/"${goods_image}" width=50 height=50>
+			<img src="./upload/${goods_image}" width=50 height=50>
 		</td>
-		<td style="font-family: Tahoma; font-size: 8pt;">
+		<td style="font-family: Tahoma; font-size: 8pt;" >
 			${goods_name}
 		</td>
-		<td style="font-family: Tahoma; font-size: 8pt;">
+		<td style="font-family: Tahoma; font-size: 8pt;" >
 			${basket_goods_amount}
 		</td>
-		<td style="font-family: Tahoma; font-size: 8pt;">
+		<td style="font-family: Tahoma; font-size: 8pt;" >
 			${bakset_goods_color}
 		</td>
-		<td style="font-family: Tahoma; font-size: 8pt;">
+		<td style="font-family: Tahoma; font-size: 8pt;" >
 			${basket_goods_size}
 		</td>
-		<td style="font-family: Tahoma; font-size: 8pt;">
+		<td style="font-family: Tahoma; font-size: 8pt;" >
 			${basket_goods_price}
 		</td>
 		</tr>
@@ -101,7 +102,7 @@
 			<td><b><font size=2>주문자 정보</font></b></td>
 		</tr>
 		<tr>
-			<td style="font-family: Tahoma; font-size: 8pt;" width=80 height=24 bgcolor="f7f7f7">이름</td>
+			<td style="font-family: Tahoma; font-size: 8pt;" width=80 height=24 bgcolor="f7f7f7" name="member_name">이름</td>
 			<td width=320 height=24>
 				<font size=2>${member.member_name}</font>
 			</td>
@@ -110,7 +111,7 @@
 			<td style="background-color: #F0F0F0; height: 1px;" colspan=6>
 		</tr>
 		<tr>
-			<td style="font-family: Tahoma; font-size: 8pt;" height=24 bgcolor="f7f7f7">휴대폰</td>
+			<td style="font-family: Tahoma; font-size: 8pt;" height=24 bgcolor="f7f7f7" name="member_phone">휴대폰</td>
 			<td width=320 height=24>
 				<font size=2>${member.member_phone01}-${member.member_phone02}-${member.member_phone03}</font>
 			</td>
@@ -119,7 +120,7 @@
 			<td style="background-color: #F0F0F0; height: 1px;" colspan=6>
 		</tr>
 		<tr>
-			<td style="font-family: Tahoma; font-size: 8pt;" height=24 bgcolor="f7f7f7">이메일 주소</td>
+			<td style="font-family: Tahoma; font-size: 8pt;" height=24 bgcolor="f7f7f7" name="member_email">이메일 주소</td>
 			<td width=320 height=24>
 				<font size=2>${member.member_emailid}@${member.member_emaildomain}</font>
 			</td>

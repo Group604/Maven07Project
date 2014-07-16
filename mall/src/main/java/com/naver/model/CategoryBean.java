@@ -8,7 +8,7 @@ public class CategoryBean {
 	/* 농도 레벨 */
 	private int level_no;
 	private String level_desc;
-	
+
 	
 	public String getCategoryname() {
 		return categoryname;

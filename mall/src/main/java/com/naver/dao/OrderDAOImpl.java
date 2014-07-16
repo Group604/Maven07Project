@@ -1,9 +1,12 @@
 package com.naver.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.naver.model.BasketBean;
 import com.naver.model.OrderBean;
 
 public class OrderDAOImpl implements OrderDAO{
@@ -23,8 +26,39 @@ public class OrderDAOImpl implements OrderDAO{
 	}
 
 	/* 회원주문 추가 */
-	public int addOrder(List<OrderBean> olist) {
+/*	public int addOrder(List<OrderBean> olist) {
 	    return sqlSession.insert("Order.oder_ins", olist);
+	}
+*/
+	public int addOrder(List<OrderBean> olist) {
+		return sqlSession.insert("Order.oder_ins", olist);
+	}
+
+	public void addBasket(List<BasketBean> orderlist) {
+		sqlSession.insert("Order.order_test",orderlist);
+		
+	}
+
+	public void addT(List<String> test) {
+		sqlSession.insert("Order.tt",test);
+		
+	}
+
+	public void addtt(String string) {
+		sqlSession.insert("Order.ttt", string);
+		
+	}
+
+	public void addBasket1(BasketBean bb) {
+		sqlSession.insert("Order.test", bb);
+	}
+
+	public void insOrder(OrderBean orderinfo) {
+		sqlSession.insert("Order.oist", orderinfo);		
+	}
+
+	public List<Map<Integer, String>> sel_stat() {
+	   return sqlSession.selectList("Order.order_stat");
 	}
 
 
