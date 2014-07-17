@@ -310,7 +310,6 @@ public class MemberAction {
 				out.println("</script>");
 			} else {
 				session.setAttribute("id", login_id);
-				System.out.println("go to index.do!");
 				return "redirect:/Index.do";
 			}
 		}
@@ -426,6 +425,7 @@ public class MemberAction {
 		session.invalidate();// 세션 종료
 
 		out.println("<script>");
+		/*out.println("document.getElementById('welcome').style.visibility='hidden';");*/
 		out.println("alert('로그아웃 되었습니다!')");
 		out.println("location='MemberLogin.do'");
 		out.println("</script>");
@@ -445,6 +445,7 @@ public class MemberAction {
 	 if(id == null) { 
 		 out.println("<script>");
 		 out.println("alert('다시 로그인 하세요!')");
+
 		 out.println("location='MemberLogin.do'"); 
 		 out.println("</script>"); 
 	  }else { 

@@ -1,6 +1,5 @@
 package com.naver.action;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -15,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.naver.dao.CategoryDAO;
 import com.naver.dao.GoodsDAO;
+import com.naver.dao.MemberDAO;
 import com.naver.model.CategoryBean;
 import com.naver.model.GoodsBean;
+import com.naver.model.MemberBean;
 
 @Controller
 public class GoodsAction {
@@ -32,6 +33,12 @@ public class GoodsAction {
 		this.categoryService = categoryService;
 	}//category setter DI
 	
+	/*회원 정보 */
+	private MemberDAO memberService;
+	public void setMemberService(MemberDAO memberService) {
+		this.memberService = memberService;
+	}//Member setter DI
+
 	@RequestMapping(value="/GoodsList.do")
 	public String goods_list(HttpServletRequest request, 
 			                 HttpServletResponse response,
@@ -56,6 +63,8 @@ public class GoodsAction {
 			out.println("</script>");
 		} else {
 		
+			MemberBean mb =this.memberService.idcheck(admin_id);
+			
 			int page = 1;
 			int limit = 5;
 
@@ -63,6 +72,11 @@ public class GoodsAction {
 			int find_level = 0;
 			String find_name = null;
 
+			
+			 if(request.getParameter("limit")!=null){
+				 limit=Integer.parseInt(request.getParameter("limit"));
+			 }
+			 
 			if (request.getParameter("find_name") != null) {
 				find_name = request.getParameter("find_name").trim();
 				find_name = new String(find_name.getBytes("ISO-8859-1"),"utf-8");
@@ -81,7 +95,11 @@ public class GoodsAction {
 				gb.setFind_category("%"+find_category+"%");
 			}
 			
-			if(request.getParameter("find_level")==null) find_level=0;
+			if((request.getParameter("find_level")==null) || (request.getParameter("find_level") == "0")){ 
+				find_level=0;
+			}else {
+				find_level= Integer.parseInt(request.getParameter("find_level"));
+			}
 			gb.setFind_level(find_level);
 			
 			if (request.getParameter("page") != null) {
@@ -92,9 +110,13 @@ public class GoodsAction {
 			int listcount = this.goodsService.getListCount(gb);
 			System.out.println("listcount():"+listcount);
 
-			gb.setStartrow((page - 1) * 5 + 1);
+			gb.setStartrow((page - 1) * limit + 1);
 			gb.setEndrow(gb.getStartrow() + limit - 1);
 
+			System.out.println("find_level:"+gb.getFind_level());
+			System.out.println("find_category:"+gb.getFind_category());
+			System.out.println("find_name:"+gb.getFind_name());
+			
 			List<GoodsBean> glist = this.goodsService.getGoodsList(gb);
 			//목록
 
@@ -104,12 +126,12 @@ public class GoodsAction {
 																		// 올림
 																		// 처리.
 			// 현재 페이지에 보여줄 시작 페이지 수(1, 11, 21 등...)
-			int startpage = (((int) ((double) page / 5 + 0.9)) - 1) * 5 + 1;
+			int startpage = (((int) ((double) page /limit + 0.9)) - 1) * limit + 1;
 			// 현재 페이지에 보여줄 마지막 페이지 수.(10, 20, 30 등...)
 			int endpage = maxpage;
 
-			if (endpage > startpage + 5 - 1)
-				endpage = startpage + 5 - 1;
+			if (endpage > startpage + 10 - 1)
+				endpage = startpage + 10 - 1;
 
 			System.out.println("startrow:"+gb.getStartrow());
 			System.out.println("endrow:"+gb.getEndrow());
@@ -117,6 +139,8 @@ public class GoodsAction {
 			System.out.println("startpage:"+startpage);
 			System.out.println("endpage:"+endpage);
 			
+			
+			listM.addAttribute("admin_name",mb.getMember_name());
 			listM.addAttribute("glist", glist);
 			listM.addAttribute("clist",clist);//카테고리
 			listM.addAttribute("lvlist",lvlist);//농도			

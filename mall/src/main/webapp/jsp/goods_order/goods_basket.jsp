@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <html>
 <head>
@@ -23,24 +24,25 @@
 				<td height="3" colspan="7" align=right></td>
 			</tr>
 			<tr bgcolor="#f0f8ff" align="center">
-				<td width="5%"><font size="2">번호</font></td>
-				<td width="5%"><font size="2">사진</font></td>
-				<td width="25%"><font size="2">제품명</font></td>
-				<td width="8%"><font size="2">수량</font></td>
-				<td width="8%"><font size="2">가격</font></td>
-				<td width="8%"><font size="2">취소</font></td>
+				<td width="10%" align="center"><font size="2">번호</font></td>
+				<td width="15%" align="center"><font size="2">사진</font></td>
+				<td width="20%" align="center"><font size="2">제품명</font></td>
+				<td width="10%" align="center"><font size="2">수량</font></td>
+				<td width="18%" align="center"><font size="2">가격</font></td>
+				<td width="25%" align="center"><font size="2">날짜</font></td>				
+				<td width="22%" align="center"><font size="2">취소</font></td>
 			</tr>
 			<c:if test="${!empty blist}">
 			<c:forEach var="list" items="${blist}">
 			   <tr>
-			   <td>${list.basket_num}</td>&nbsp;&nbsp;&nbsp;&nbsp;
-			   <td><img src="./upload/${list.goods_image}" width=50 height=50>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			   <td>${list.goods_name}&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			   <td>${list.basket_goods_num}&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			   <td>${list.basket_member_id}&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			   <td>${list.basket_goods_amount}&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			   <td>${list.goods_price_amount}&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			   <td>${list.basket_date}</td>
+			   <td align="center">${list.basket_num}</td>&nbsp;&nbsp;&nbsp;&nbsp;
+			   <td align="center"><img src="./upload/${list.goods_image}" width=50 height=50>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			   <td align="center">${list.goods_name}</td>
+<%-- 			   <td align="center">${list.basket_goods_num}</td> --%>
+<%-- 			   <td>${list.basket_member_id}&nbsp;&nbsp;&nbsp;&nbsp;</td> --%>
+			   <td align="center">${list.basket_goods_amount}</td>
+			   <td align="center">${list.goods_price_amount}</td>
+			   <td align="center">${fn:substring(list.basket_date,0,10)}</td>
 			   <td><font size="2">
 				<a href="BasketDel.do?basket_num=${list.basket_num}" onclick="return confirm('취소하시겠습니까?')">취소</a>
 			</font></td>

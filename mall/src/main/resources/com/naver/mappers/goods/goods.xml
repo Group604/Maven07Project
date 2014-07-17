@@ -9,24 +9,18 @@
 	<select id="goods_count" parameterType="goods" resultType="int">
 		select count(goods_num) from goods
         <where> 
-		<if test="find_level == 0"></if>
-		<if test="find_level != 0">
-        goods_level =#{find_level}
+		<if test="find_level == 0 or find_level == null" ></if>
+		<if test="find_level != 0 and find_level != null">
+         goods_level =#{find_level}
 		</if>
-         <if test="find_category == null">
-        </if>
-        <if test="find_category =='%ALL%'">
-        </if>
-         <if test="find_category !='%ALL%'">
+        <if test="find_category =='%ALL%' or find_category == null"></if>
+         <if test="find_category !='%ALL%' and find_category != null">
          and goods_category like #{find_category}  
          </if>
-         <if test="find_name == null"></if>
-         <if test="find_name!=null"> 
-         <if test="find_name == '%ALL%'"></if>
-         <if test="find_name != '%ALL%'">
+         <if test="find_name == null or find_name == '%ALL%'"></if>
+         <if test="find_name != null and find_name != '%ALL%'">
          and goods_name like #{find_name}
-          </if>
-     	</if> 
+         </if>
 		and goods_inuse=0
       </where>
 	</select>
@@ -70,7 +64,7 @@
 		and goods_inuse=0
       </where>
 		 order by goods_num desc))
-		where rNum &gt; #{startrow} and rNum&lt;#{endrow}
+		where rNum &gt;=#{startrow} and rNum&lt;=#{endrow}
 		<!-- &gt; 은 ~보다 크다(>), &lt; 은 ~보다 작다(<) -->
 	</select>
 

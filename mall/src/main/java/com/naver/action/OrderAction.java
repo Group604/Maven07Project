@@ -141,6 +141,7 @@ public class OrderAction {
 				basket.setBasket_goods_amount(amount);//상품수량
 				basket.setBasket_member_id(member_id);//주문자 아이디
 				basket.setGoods_image(gb.getGoods_image());//상품이미지경로
+				System.out.println(gb.getGoods_image());
 				basket.setGoods_price_amount(gb.getGoods_price() * gb.getGoods_amount());//상품단가*수량
 				
 				
@@ -161,6 +162,11 @@ public class OrderAction {
 
 			} else if (ordertype.equals("basket")) {/* 장바구니에서 주문 한 경우 */
 				List<BasketBean> basketlist = this.basketService.getBasketList(member_id);
+				
+				for (BasketBean basketBean : basketlist) {
+					System.out.println(basketBean.getGoods_image());
+				}
+				
 				request.setAttribute("ordertype", "basket");//주문타입
 				request.setAttribute("basketlist", basketlist);//장바구니 리스트
 			}

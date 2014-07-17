@@ -364,3 +364,28 @@ drop trigger goods_detail_trg;
  where trigger_name="GOODS_DETAIL_TRG";
  
  select * from category;
+ 
+ select * from goods where goods_category='Intenso';
+ 
+ select * from goods;
+ 
+ select rownum rnum,goods_num,goods_category,goods_name,goods_content,goods_size,goods_color,goods_amount,
+                goods_price,goods_image,goods_best,goods_date,goods_inuse,goods_level
+    	 from
+    	 (select * from goods where goods_inuse=0 order by goods_num asc)
+ 
+ select * 
+    	from
+    	(select rownum rnum,goods_num,goods_category,goods_name,goods_content,goods_size,goods_color,goods_amount,
+                goods_price,goods_image,goods_best,goods_date,goods_inuse,goods_level
+    	 from
+    	 (select * from goods where goods_inuse=0 order by goods_num asc)
+    	  )
+    	  where rnum >=1 and rnum <=5
+    	  
+ select count(*) from goods where goods_inuse=0
+ 
+ select * from goods 
+ 
+ select * from goods_order;
+ 

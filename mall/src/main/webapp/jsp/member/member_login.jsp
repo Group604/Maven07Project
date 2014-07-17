@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>로그인</title>
+<metacharset="UTF-8">
+<title>관리자 메인화면</title>
+<link rel="stylesheet" type="text/css" href="./css/admin.css" />
 <link rel="stylesheet" type="text/css" href="./css/member.css" />
 <link rel="stylesheet" type="text/css" href="./css/bbs.css" />
 <script src="./js/jquery.js"></script>
@@ -36,14 +38,37 @@
 			$url="MemberFind.do";
 			window.open($url, "confirm","width=450px,height=300px,scrollbars=yes");
 		}
-	 
-	 
 </script>
+
 </head>
 <body>
-	<div id="login_wrap">
-		<form method="post" action="MemberLoginOk.do"
-			onsubmit="return login_check();">
+	<!-- 관리자 메인 ui -->
+	<div id="aMain_wrap">
+		<!-- 관리자 상단 -->
+		<div id="aMain_header">
+			<!-- 회사 로고 -->
+			<div id="aMain_logo">
+				<a href="admin_main.do" onfocus="this.blur();"> <img
+					src="./images/admin/admin_logo.gif" />
+				</a>
+			</div>
+			<!-- 상단 메뉴 -->
+			<!-- <div id="aMain_menu">
+				<ul>
+					<li><a href="admin_bbs_list.do" onfocus="this.blur();">자료실</a>
+					</li>
+					<li><a href="admin_board_list.do" onfocus="this.blur();">게시판</a>
+					</li>
+					<li><a href="admin_member_list.do" onfocus="this.blur();">회원관리</a>
+					</li>
+					<li><a href="admin_gongji_list.do" onfocus="this.blur();">공지사항</a>
+					</li>
+				</ul>
+			</div> -->
+			<!-- 관리자 상단 우측메뉴 -->
+			<div id="aMain_right">
+				<div id="login_wrap">
+		<form method="post" action="MemberLoginOk.do" onsubmit="return login_check();">
 			<table id="login_t">
 				<tr>
 					<th>아이디</th>
@@ -68,6 +93,29 @@
 			<input type="button" value="회원가입" class="input_b" onclick="location='MemberJoin.do'"/>
 			</div>
 		</form>
+	</div>
+			</div>
+		</div>
+
+		<div class="clear"></div>
+		<!-- 관리자 메인내용 -->
+
+	         <div>
+	           <p>
+	           . .
+	           . .
+	           . .
+	           . .
+	           . .
+	           . .
+	           </p>
+	         </div>
+	         
+			<!-- 관리자 하단 부분 -->
+		<div id="aMain_footer">
+			<h2 class="afooter_title">서울시 마포구 대흥동 중앙빌딩....TEL)02-999-9999</h2>
+		</div>
+
 	</div>
 </body>
 </html>

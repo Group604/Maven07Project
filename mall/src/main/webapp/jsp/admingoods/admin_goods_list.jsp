@@ -4,6 +4,8 @@
 <html>
 <head>
 <title>쇼핑몰</title>
+<link rel="stylesheet" type="text/css" href="./css/admin.css"/>
+<link rel="stylesheet" type="text/css" href="./css/bbs.css"/>
 <script type="text/javascript" src="./js/jquery.js"></script>
 <script>
 function goodsmodify(goods_num){

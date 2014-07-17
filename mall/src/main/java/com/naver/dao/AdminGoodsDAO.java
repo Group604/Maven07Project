@@ -6,7 +6,7 @@ import com.naver.model.GoodsBean;
 
 public interface AdminGoodsDAO {
 
-	List<GoodsBean> getGoodsList();//상품리스트 조회
+	List<GoodsBean> getGoodsList(GoodsBean b);//상품리스트 조회
 
 	int insertGoods(GoodsBean b);//상품등록
 
@@ -15,5 +15,7 @@ public interface AdminGoodsDAO {
 	int updateGoods(GoodsBean b);//상품수정
 
 	int delGoods(int goods_num);//상품삭제
+
+	int getListCount();//총리스트갯수
 	
 }

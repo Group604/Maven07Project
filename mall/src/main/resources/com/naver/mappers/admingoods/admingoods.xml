@@ -6,9 +6,20 @@
    
    <mapper namespace="AdminGoods">
    
+   <!-- 상품 수량 -->
+   <select id="goods_count" resultType="int">
+   select count(*) from goods where goods_inuse=0
+   </select>
+   
     <!-- 관리자 상품 조회 -->
-    <select id="goods_list" resultType="admingoods">
-    	select * from goods where goods_inuse=0 order by goods_num asc
+    <select id="goods_list" parameterType="admingoods" resultType="admingoods">
+    	select * from 
+    	(select rownum rnum,goods_num,goods_category,goods_name,goods_content,goods_size,goods_color,goods_amount,
+                goods_price,goods_image,goods_best,goods_date,goods_inuse,goods_level
+    	 from
+    	 (select * from goods where goods_inuse=0 order by goods_num asc)
+    	  )
+    	  where rnum&gt;=#{startrow} and rnum&lt;=#{endrow}
     </select>
     
     <!-- 상품등록 -->

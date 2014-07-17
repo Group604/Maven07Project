@@ -20,8 +20,8 @@ public class GoodsBean {
 	
 	
 	/* 페이징 변수 */
-	private int startrow=0;
-	private int endrow=10;
+	private int startrow;
+	private int endrow;
 
 
 	/*검색어 와 검색필드 */

@@ -1,0 +1,8 @@
+@CHARSET "UTF-8";
+#divStore{
+	height:300px;
+	width:300px;
+	margin:10px 0 0 120px;
+	border-radius:10px;
+	opacity:0.9;
+}

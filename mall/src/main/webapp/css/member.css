@@ -2,17 +2,17 @@
 
 /* member_login.jsp ui */
 #login_wrap{
-	width:300px; height:140px;
-	border:1px solid blue; border-radius:20px;
-	box-shadow:20px 20px 20px #ccc;
+	width:280px; height:120px;
+	border:1px solid blue; border-radius:10px;
+	box-shadow:10px 10px 10px #ccc;
 	margin-left:auto; margin-right:auto;
-	margin-top:100px;
+	margin-top:8px;
 }
 #login_t{
-	margin:20px 0 0 20px;
+	margin:10px  0 0 10px;
 }
 .input_s{
-	width:50px; height:50px; border:1px solid #ccc;
+	width:60px; height:40px; border:1px solid #ccc;
 	border-radius:8px; font-weight:bold;
 }
 .input_s:hover{
@@ -27,7 +27,7 @@
 }
 
 #login_menu{
-	margin:10px 0 0 30px; 
+	margin:10px 0 0 10px; 
 	
 }
 

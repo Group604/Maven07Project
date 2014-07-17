@@ -64,23 +64,13 @@
 		
 		<tr align=center height=20>
 		<td style="font-family: Tahoma; font-size: 7pt;">
-			<img src="./upload/${goods_image}" width=50 height=50>
+			<img src="./upload/${list.goods_image}" width=50 height=50>
 		</td>
-		<td style="font-family: Tahoma; font-size: 8pt;" >
-			${goods_name}
-		</td>
-		<td style="font-family: Tahoma; font-size: 8pt;" >
-			${basket_goods_amount}
-		</td>
-		<td style="font-family: Tahoma; font-size: 8pt;" >
-			${bakset_goods_color}
-		</td>
-		<td style="font-family: Tahoma; font-size: 8pt;" >
-			${basket_goods_size}
-		</td>
-		<td style="font-family: Tahoma; font-size: 8pt;" >
-			${basket_goods_price}
-		</td>
+		<td style="font-family: Tahoma; font-size: 7pt;">${list.goods_name}</td>
+	    <td style="font-family: Tahoma; font-size: 7pt;">${list.basket_goods_amount}</td>
+	    <td style="font-family: Tahoma; font-size: 7pt;">${list.goods_image}</td>
+	    <td style="font-family: Tahoma; font-size: 7pt;">${list.basket_goods_num}</td>
+	    <td style="font-family: Tahoma; font-size: 7pt;">${list.goods_price_amount}</td>
 		</tr>
 		<tr>
 			<td style="background-color: #F0F0F0; height: 1px;" colspan=6>

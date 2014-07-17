@@ -14,8 +14,8 @@ public class AdminGoodsDAOImpl implements AdminGoodsDAO{
 		this.sqlSession = sqlSession;
 	}//setter DI
 
-	public List<GoodsBean> getGoodsList() {
-	 return this.sqlSession.selectList("AdminGoods.goods_list");
+	public List<GoodsBean> getGoodsList(GoodsBean b) {
+	 return this.sqlSession.selectList("AdminGoods.goods_list",b);
 	}
 
 	//상품 등록
@@ -36,6 +36,10 @@ public class AdminGoodsDAOImpl implements AdminGoodsDAO{
 	//상품 삭제
 	public int delGoods(int goods_num) {
 		return this.sqlSession.delete("AdminGoods.goods_delete", goods_num);
+	}
+
+	public int getListCount() {
+	return this.sqlSession.selectOne("AdminGoods.goods_count");
 	}
 
 		

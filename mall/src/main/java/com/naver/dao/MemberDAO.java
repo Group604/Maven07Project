@@ -30,8 +30,8 @@ public interface MemberDAO {
 	int delMember(MemberBean dm);//회원탈퇴
 
 	int IsAdm(String id);//관리자 여부
-	
 
+	
 	/*List<PhoneBean> getphoneList();//phoneList
 
 	List<EmailBean> getemailList();//emailList
