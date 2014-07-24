@@ -63,7 +63,7 @@ public class OrderAction {
 		PrintWriter out = response.getWriter();
 
 		session = request.getSession();
-		String member_id = (String) session.getAttribute("admin_id");// 회원아이디 저장
+		String member_id = (String) session.getAttribute("member_id");// 회원아이디 저장
 
 		if (member_id == null) {
 			out.println("<script>");
