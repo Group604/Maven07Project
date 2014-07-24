@@ -14,7 +14,7 @@
 	<table border="0" width="80%">
 	<form name="goodsform" action="AdminGoodsModifyOk.do" method="post" enctype="multipart/form-data">
 	<c:if test="${!empty agb}">
-	<input type="hidden" name="goods_num" value="${agb.goods_num}">${agb.goods_num}
+	<input type="hidden" name="goods_num" value="${agb.goods_num}">
 	<tr>
 		<td>
 		<p align="center"><span style="font-size: 26pt;">상 품 수 정</span></p>
@@ -32,7 +32,7 @@
 			<td width="346" height="30">
 			<select name="goods_category" size="1">
 			         <c:forEach var="ls" items="${clist}">
-			         <option value="${ls.categorydesc}">${ls.categorydesc}</option>
+			         <option value="${ls.categoryname}" <c:if test="${ls.categoryname==agb.goods_category}">selected</c:if>>${ls.categorydesc}</option>
 			        </c:forEach>
 				</select>
 			</td>

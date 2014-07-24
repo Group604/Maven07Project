@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,21 @@
 <title>관리자 메인화면</title>
 <link rel="stylesheet" type="text/css" href="./cs/admin.css" />
 <link rel="stylesheet" type="text/css" href="./cs/bbs.css" />
+<link rel="stylesheet" type="text/css" href="./cs/admin_bbs.css" />
+<link rel="stylesheet" type="text/css" href="./cs/board.css" />
+<script src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/bbs.js"></script>
+<script src="./js/board.js"></script>
+<script src="./js/gongji.js"></script>
+<script>
+ function find_check(){
+	 if($.trim($("#find_name").val())==""){
+		 alert("검색어를 입력하세요!");
+		 $("#find_name").val("").focus();
+		 return false;
+	 }
+ }
+</script>
 </head>
 <body>
 <!-- 관리자 메인 ui -->
@@ -15,8 +31,8 @@
 <div id="aMain_header">
 <!-- 회사 로고 -->
 <div id="aMain_logo">
-<a href="admin_main.do" onfocus="this.blur();">
-<img src="./images/admin/admin_logo.gif" />
+<a href="MemberLogin.do" onfocus="this.blur();">
+<img src="./images/admin/admin_logo.png" />
 </a>
 </div>
 <!-- 상단 메뉴 -->
@@ -34,7 +50,7 @@
 </div>
 <!-- 관리자 상단 우측메뉴 -->
 <div id="aMain_right">
-<form method="post" action="admin_logout.do">
+<form method="post" action="MemberLogout.do">
 <h3 class="aMain_title">
  ${admin_name}님 로그인을 환영합니다!
  <input type="submit" value="로그아웃" class="input_b" />
@@ -44,21 +60,3 @@
 </div>
 
 <div class="clear"></div>
-
-<!-- 관리자 메인내용 -->
-<div id="aMain_cont">
-<h2 class="aMainCont_title">
-관리자 메인 내용입니다.
-</h2>
-</div>
-
-<div class="clear"></div>
-<!-- 관리자 하단 부분 -->
-<div id="aMain_footer">
-<h2 class="afooter_title">
-서울시 마포구 대흥동 중앙빌딩....TEL)02-999-9999
-</h2>
-</div>
-</div>
-</body>
-</html>

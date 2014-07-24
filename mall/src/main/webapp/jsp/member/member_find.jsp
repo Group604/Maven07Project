@@ -28,7 +28,7 @@
 </script>
 </head>
 <body>
-	<table width="450px" height="20px">
+	<table width="410px" height="20px">
 		<tr>
 			<td align="left"><b>아이디 찾기</b></td>
 		</tr>

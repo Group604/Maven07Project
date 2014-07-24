@@ -41,7 +41,6 @@ public class BasketAction {
 		if(request.getParameter("page")!=null){
 			page=Integer.parseInt(request.getParameter("page"));
 		}
-        System.out.println("member_id??:"+member_id);
 		
         if (member_id == null) {
 			out.println("<script>");
@@ -49,8 +48,7 @@ public class BasketAction {
 			out.println("location='MemberLogin.do'");
 			out.println("</script>");
 		} else {
-			System.out.println("member_id:" + member_id);
-
+	
 			if(request.getParameter("goods_num")==null){
 				out.println("<script>");
 				out.println("alert('해당고객의 장바구니 내역이 없습니다!')");
@@ -117,8 +115,17 @@ public class BasketAction {
 		PrintWriter out = response.getWriter();
 	
 		session = request.getSession();
-		String member_id = (String) session.getAttribute("admin_id");// 회원정보
+		String member_id = (String) session.getAttribute("member_id");// 회원정보
+
+/*		String member_id=request.getParameter("admin_id");*/
 		
+		if (member_id == null) {
+			out.println("<script>");
+			out.println("alert('로그인 하세요!')");
+			out.println("location='MemberLogin.do'");
+			out.println("</script>");
+		} else {
+			
 		List<BasketBean> blist=this.basketService.getBasketList(member_id);
 		
 		int page=1;
@@ -139,6 +146,8 @@ public class BasketAction {
 		request.setAttribute("blist", blist);
 		request.setAttribute("goods_num", goods_num);/*상품번호 저장 */
 		 return "goods_order/goods_basket";
+		}
+		return null;
 	}
 	
 

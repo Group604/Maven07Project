@@ -389,3 +389,27 @@ drop trigger goods_detail_trg;
  
  select * from goods_order;
  
+ 
+ insert into goods(goods_num,goods_category,goods_name,goods_content,goods_size,goods_color,goods_amount,
+                        goods_price,goods_image,goods_best,goods_date,goods_inuse,goods_level)
+	     values(goods_no_seq.nextval,'Restretto','테스트','ㅁㅁㅁ',1,'red',
+	            1,1,'/2014-07-18/Goods20140718-100307-470.png',0,sysdate,0,3);
+	            
+select * from goods;	      
+select * from category;
+select * from goods_level;
+
+ select stat_no,stat_desc from order_stat order by stat_no;
+ 
+ 
+ select * from goods_order;
+ 
+ select * from order_detail;
+ 
+ select * from 
+    	(select rownum rnum,goods_num,goods_category,goods_name,goods_content,goods_size,goods_color,goods_amount,
+                goods_price,goods_image,goods_best,goods_date,goods_inuse,goods_level
+    	 from
+    	 (select * from goods where goods_inuse=0 order by goods_num asc)
+    	  )
+    	  where rnum >=1 and rnum <=5

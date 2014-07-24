@@ -19,9 +19,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import pwdconv.PwdChange;
 
+import com.naver.dao.AdminGoodsDAO;
+import com.naver.dao.CategoryDAO;
 import com.naver.dao.MemberDAO;
 import com.naver.dao.PhoneMailDAO;
 import com.naver.dao.ZipcodeDAO;
+import com.naver.model.CategoryBean;
+import com.naver.model.GoodsBean;
 import com.naver.model.MemberBean;
 import com.naver.model.PhoneMailBean;
 import com.naver.model.ZipcodeBean;
@@ -49,7 +53,19 @@ public class MemberAction {
 	}// setter DI 설정
 
 	/* List<PhoneMailBean> phone= this.phonemailService.getPhoneList(); */
-
+	
+	/* 상품카테고리 */
+	private CategoryDAO categoryService;
+	public void setCategoryService(CategoryDAO categoryService) {
+		this.categoryService = categoryService;
+	}//category setter DI
+	
+	/* 관리자 상품  */
+	private AdminGoodsDAO admingoodsService;
+	public void setAdmingoodsService(AdminGoodsDAO admingoodsService) {
+		this.admingoodsService = admingoodsService;
+	}//setter DI
+	
 	/* 아이디 체크 메소드 */
 	public int member_check(MemberBean mb) {
 		return this.memberService.member_check(mb);
@@ -286,9 +302,11 @@ public class MemberAction {
 
 	@RequestMapping(value = "/MemberLoginOk")
 	public String member_login_ok(@RequestParam("member_id") String login_id,
-			@RequestParam("member_pwd") String login_pwd,
-			HttpServletResponse response, @ModelAttribute MemberBean db_id,
-			HttpSession session, HttpServletRequest request) throws Exception {
+								  @RequestParam("member_pwd") String login_pwd,
+								  HttpServletResponse response, 
+								  @ModelAttribute MemberBean db_id,
+								  HttpSession session, 
+								  HttpServletRequest request) throws Exception {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		session = request.getSession();
@@ -309,14 +327,14 @@ public class MemberAction {
 				out.println("history.go(-1)");
 				out.println("</script>");
 			} else {
-				session.setAttribute("id", login_id);
+				session.setAttribute("member_id", login_id);
 				return "redirect:/Index.do";
 			}
 		}
 		return null;
 	}
 
-	/* 메인 화면 */
+	/* 메인 화면 
 	@RequestMapping(value = "/Index")
 	public String index(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws Exception {
@@ -350,8 +368,73 @@ public class MemberAction {
 			}
 		}
 	 return null;
-	}
+	}*/
 
+	
+	
+	/* 메인 화면 */
+	@RequestMapping(value = "/Index")
+	public String index(HttpServletRequest request,
+						HttpServletResponse response, 
+						HttpSession session,
+						@ModelAttribute GoodsBean b,
+						Model listM
+						) throws Exception {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		session = request.getSession();
+		
+		String member_id=(String)session.getAttribute("member_id");
+		System.out.println("member_id:"+member_id);
+		
+		/* 카테고리 */
+		List<CategoryBean> clist=this.categoryService.getCategoryList();
+		/*농도 */
+		List<CategoryBean> lvlist=this.categoryService.getLevels();
+
+		int page=1;
+		int limit=5;
+		 if(request.getParameter("page")!=null){
+			 page=Integer.parseInt(request.getParameter("page"));
+		 }
+		 if(request.getParameter("limit")!=null){
+			 limit=Integer.parseInt(request.getParameter("limit"));
+		 }
+	 int listcount=admingoodsService.getListCount();
+	 System.out.println("listcount:"+listcount);
+	 
+	 b.setStartrow((page-1)*5+1);
+     b.setEndrow(b.getStartrow() + limit -1);
+	 //총레코드/수 반환
+     
+	List<GoodsBean> glist=admingoodsService.getGoodsList(b);
+   
+     
+     		// 총 페이지 수.
+  			int maxpage = (int) ((double) listcount / limit + 0.95); // 0.95를 더해서 올림 처리.
+  			// 현재 페이지에 보여줄 시작 페이지 수(1, 11, 21 등...)
+  			int startpage = (((int) ((double) page / limit + 0.9)) - 1) * limit + 1;
+  			// 현재 페이지에 보여줄 마지막 페이지 수.(10, 20, 30 등...)
+  			int endpage = maxpage;
+  			
+
+  			if (endpage > startpage + 5 - 1)
+  				endpage = startpage +5 - 1;
+
+  			listM.addAttribute("glist", glist);
+  			listM.addAttribute("page", page);
+  			listM.addAttribute("startpage", startpage);
+  			listM.addAttribute("endpage", endpage);
+  			listM.addAttribute("maxpage", maxpage);
+  			listM.addAttribute("listcount", listcount);
+  			listM.addAttribute("clist", clist);
+  			listM.addAttribute("lvlist", lvlist);  
+		
+		
+		return "index";
+	}
+	
+	
 	/* 회원 정보수정 폼 */
 
 	@RequestMapping(value = "/MemberEdit")
@@ -425,7 +508,6 @@ public class MemberAction {
 		session.invalidate();// 세션 종료
 
 		out.println("<script>");
-		/*out.println("document.getElementById('welcome').style.visibility='hidden';");*/
 		out.println("alert('로그아웃 되었습니다!')");
 		out.println("location='MemberLogin.do'");
 		out.println("</script>");

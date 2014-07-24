@@ -41,6 +41,8 @@ function GetSelected(){
 
 </head>
 <body>
+<!-- outlet_wrap -->
+<div id="outlet_wrap">
 <!-- 관리자 메인 ui -->
 <div id="aMain_wrap">
 <!-- 관리자 상단 -->
@@ -67,7 +69,7 @@ function GetSelected(){
 </div>
 <!-- 관리자 상단 우측메뉴 -->
 <div id="aMain_right">
-<form method="post" action="MemberLogout">
+<form method="post" action="MemberLogout.do">
 <h3 class="aMain_title">
  ${admin_name}님 로그인을 환영합니다!
  <input type="submit" value="로그아웃" class="input_b" />
@@ -244,13 +246,55 @@ function GetSelected(){
 	</div>
 </div>
 
+
 <div class="clear"></div>
 <!-- 관리자 하단 부분 -->
-<div id="aMain_footer">
+<!-- <div id="aMain_footer">
 <h5 class="afooter_title">
 서울시 마포구 대흥동 중앙빌딩....TEL)02-999-9999
-</h5>
+</h5> -->
+<footer>
+        <ul>
+            <li><a href="#">회사소개</a></li>
+            <li><a href="#">이용약관</a></li>
+            <li><a href="#">개인정보취급방침</a></li>
+            <li><a href="#">광고/이벤트 문의</a></li>
+            <li><a href="#">고객만족센터</a></li>
+            <li class="no_line"><a href="#">찾아오시는길</a></li>
+        </ul>
+        <div class="clear"></div>
+        <a href="./"><img src="imgs/foot_img.gif" width="147" height="62" alt="SENOP"></a>
+        <div id="foot_note">
+	          고객상담 전화주문:1577-1111 사업자등록번호 :106-11-123456  대표이사: 양용석  통신판매업 서울 제 000000호<br>
+	          개인정보관리책임자:ugpapa 분쟁조정기관표시 : 소비자보호원, 전자거래분쟁중재위원회<br>
+	          이메일주소무단수집거부 help@senopbiz.com<br>
+	          Copyright (c) 20111 Senop Corp. All right Reserved.
+        </div>
+</footer>  
+
+
+
+
+
+
+<!-- </div> -->
 </div>
+<!-- 스티키 윈도우내용  -->
+<div id="sticky">
+	<ul>
+    	<li><a href="#"><img src="imgs/facebook_icon.png" width="24" height="24"> 페이스북</a></li>
+        <li><a href="#"><img src="imgs/twitter_icon.png" width="24" height="24"> 트위터</a></li>
+        <li><a href="#"><img src="imgs/rss_icon.png" width="24" height="24"> RSS 피드</a></li>        
+	</ul>
+    <div class="recent">
+	    <h3>최근 본 상품 </h3>
+        <ul>
+        	<li><img src="imgs/products/book/html5_icon.jpg" width="75" height="95"></li>
+            <li><img src="imgs/products/book/jquery_icon.jpg" width="75" height="95"></li>
+         </ul> 	
+        
+    </div>
 </div>
+</div><!-- outlet_wrap -->
 </body>
 </html>

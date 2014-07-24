@@ -1,14 +1,47 @@
 @CHARSET "UTF-8";
+#join_wrap{
+    height:450px;
+	margin-top:100px;
+	margin-bottom:200px;
+	padding:50px;
+	background: url(../images/background.jpg) repeat;
+}
 #join_t{
 width:960px;
 cellspacitn:0;
 cellpadding:0;
 border:0;
-align:center;	
+align:center;
+margin:10px 10px 10px 20px;	
+
+}
+#join_t th{
+	text-align:right;
 }
 #form_t{
 	border: 1 solid black;
 	width: 80%;
 	height: 80%;
 }
-
+.join_title{
+	margin:10px 10px 50px 300px;
+}
+#join_menu{
+	margin:50px 50px 50px 300px;
+}
+.box{
+	border:#336699 2px solid;
+	padding:0 5px;
+	border-radius:5px;
+}
+.input_cb{
+	background-color:#369;
+	border:solid 1px #369;
+	color: #FFF;
+	height:26px;
+	width:98px;
+	margin-left:2px;
+}
+#head_search{
+	visibility: hidden;
+}

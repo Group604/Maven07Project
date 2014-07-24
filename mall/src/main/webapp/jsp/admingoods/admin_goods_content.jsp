@@ -4,6 +4,20 @@
 <html>
 <head>
 <title>상품내용보기</title>
+
+
+<script language="Javascript"> 
+<!-- 
+function frameclose() { 
+self.close() 
+} 
+//--> 
+</script>
+
+
+
+
+
 </head>
 <body>
 <table width="960" color="gray" align="center">
@@ -23,7 +37,7 @@
 			<td width="346" height="30">
 			<select name="goods_category" size="1">
 			         <c:forEach var="ls" items="${clist}">
-			         <option value="${ls.categorydesc}">${ls.categorydesc}</option>
+			         <option value="${ls.categoryname}" <c:if test="${agb.goods_category==ls.categoryname}">selected</c:if>>${ls.categorydesc}</option>
 			        </c:forEach>
 				</select>
 			</td>
@@ -111,7 +125,8 @@
 	<th colspan="2">
 	<input type="button" value="수정" class="input_b" onclick="location='AdminGoodsContent.do?goods_num=${agb.goods_num}&page=${page}&state=edit'" />
 	<input type="button" value="삭제" class="input_b" onclick="location='AdminGoodsContent.do?goods_num=${agb.goods_num}&page=${page}&state=del'" />
-	<input type="button" value="목록" class="input_b" onclick="location='AdminGoodsContent.do?page=${page}'" /></th>
+	<input type="button" value="목록" class="input_b" onclick="location='AdminGoodsContent.do?page=${page}'" />
+	<a href="javascript:frameclose()">프레임셋 한방에 닫기</a></th>
 	</tr>
 			
 	<!-- <tr>

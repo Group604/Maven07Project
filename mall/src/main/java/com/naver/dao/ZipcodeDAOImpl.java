@@ -21,7 +21,4 @@ public class ZipcodeDAOImpl implements ZipcodeDAO{
 		return sqlSession.selectList("Zipcode.zip_search", search);
 	}
 
-	/*public List<Zipcode> list(String search) {
-		return sqlSession.selectOne(arg0, arg1);
-	}*/
 }

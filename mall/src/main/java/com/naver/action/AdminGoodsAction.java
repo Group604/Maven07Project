@@ -1,6 +1,7 @@
 package com.naver.action;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.List;
@@ -45,11 +46,11 @@ public class AdminGoodsAction {
 		this.categoryService = categoryService;
 	}//category setter DI
 	
-	/* 카테고리 출력 메소드 */
+/*	 카테고리 출력 메소드 
 	public List<CategoryBean> getCategory(){
 		List<CategoryBean> clist=this.categoryService.getCategoryList();
 		return clist;
-	}
+	}*/
 	
 	/* 상품 조회 */
 	@RequestMapping(value="/AdminGoodsList")
@@ -67,7 +68,7 @@ public class AdminGoodsAction {
 		if (admin_id == null) {
 			out.println("<script>");
 			out.println("alert('다시 로그인 하세요!')");
-			out.println("history.back()");
+			out.println("location='MemberLogin.do'");
 			out.println("</script>");
 		} else {
 			
@@ -84,11 +85,15 @@ public class AdminGoodsAction {
 		 b.setStartrow((page-1)*5+1);
 	     b.setEndrow(b.getStartrow() + limit -1);
 		 //총레코드/수 반환
+	     
 		List<GoodsBean> glist=admingoodsService.getGoodsList(b);
 
 	    System.out.println("listcount:"+listcount);
-	      
-	    
+	    /* 카테고리 */
+		List<CategoryBean> clist=this.categoryService.getCategoryList();
+		/*농도 */
+		List<CategoryBean> lvlist=this.categoryService.getLevels();
+		 
 	     
 	     		// 총 페이지 수.
 	  			int maxpage = (int) ((double) listcount / limit + 0.95); // 0.95를 더해서 올림 처리.
@@ -113,9 +118,12 @@ public class AdminGoodsAction {
 	  			listM.addAttribute("endpage", endpage);
 	  			listM.addAttribute("maxpage", maxpage);
 	  			listM.addAttribute("listcount", listcount);
+	  			listM.addAttribute("clist", clist);
+	  			listM.addAttribute("lvlist", lvlist);   
+	  		   
 	  			/* paging 끝 */
-	/*return "admingoods/admin_goods_list";*/
-	return "admingoods/admin_main";
+	return "admingoods/admin_goods_list";
+	/*return "admingoods/admin_main";*/
 		}
 		return null;
 	}
@@ -125,8 +133,12 @@ public class AdminGoodsAction {
 	public String adminGoodsAdd(HttpServletRequest request,
 			 HttpServletResponse response) {
 		
+		/* 카테고리 */
 		List<CategoryBean> clist=this.categoryService.getCategoryList();
+		/*농도 */
+		List<CategoryBean> lvlist=this.categoryService.getLevels();
 		request.setAttribute("clist", clist);
+		request.setAttribute("lvlist", lvlist);
 		 return "admingoods/admin_goods_write";
 	}
 	
@@ -148,7 +160,7 @@ public class AdminGoodsAction {
 			out.println("history.back()");
 			out.println("</script>");
 		} else {
-			String saveFolder = "C:/Users/Administrator/git/mallProject06/mall/src/main/webapp/upload";// 이진파일
+			String saveFolder = "C:/Users/Administrator/git/MavenMall07001/mall/src/main/webapp/upload";// 이진파일
 			
 			int fileSize = 5 * 1025 * 1024;// 이진파일 업로드 최대크기,5mb
 			MultipartRequest multi = null;// 이진파일 업로드 변수선언
@@ -166,16 +178,19 @@ public class AdminGoodsAction {
 			String goods_content = multi.getParameter("goods_content").trim();
 			int goods_price = Integer.parseInt(multi.getParameter("goods_price").trim());
 			int goods_amount = Integer.parseInt(multi.getParameter("goods_amount").trim());
-			int goods_best = Integer.parseInt(multi.getParameter("goods_best").trim());
+			/*int goods_best = Integer.parseInt(multi.getParameter("goods_best").trim());*/
+			int goods_best = 0;
+			int goods_level=Integer.parseInt(multi.getParameter("goods_level"));
 
-			System.out.println(goods_name);
-			System.out.println(goods_category); 
-			System.out.println(goods_color);
-			System.out.println(goods_size);
-			System.out.println(goods_content);
-			System.out.println(goods_price); 
-			System.out.println(goods_amount);
-			System.out.println(goods_best);
+			
+			b.setGoods_name(goods_name);
+			b.setGoods_category(goods_category);
+			b.setGoods_color(goods_color);
+			b.setGoods_size(goods_size);
+			b.setGoods_content(goods_content);
+			b.setGoods_price(goods_price);
+			b.setGoods_amount(goods_amount);
+			b.setGoods_level(goods_level);
 			
 			File UpFile = multi.getFile("file4");// 첨부한 이진파일을 가져옴.
 
@@ -223,7 +238,6 @@ public class AdminGoodsAction {
 				b.setGoods_image(fileDBName);
 			}
 
-            
 			if(this.admingoodsService.insertGoods(b)>0){// 저장메서드 호출
 				out.println("<script>");
 				out.println("alert('상품이 등록되었습니다.!')");
@@ -266,7 +280,7 @@ public class AdminGoodsAction {
 
 		String admin_id = (String) session.getAttribute("admin_id");
 		
-		String saveFolder="C:/Users/Administrator/git/mallProject06/mall/src/main/webapp/upload";//서버 업로드경로 저장
+		String saveFolder="C:/Users/Administrator/git/MavenMall07001/mall/src/main/webapp/upload";//서버 업로드경로 저장
 		int fileSize = 5*1024*1024;//이진파일 업로드 최대 크기
 		MultipartRequest multi=null;//이진파일 받아올 변수
 	    multi=new MultipartRequest(request, saveFolder, fileSize, "utf-8");
@@ -402,7 +416,7 @@ public class AdminGoodsAction {
 				out.println("</script>");
 			}else{
 				if(this.admingoodsService.delGoods(goods_num)>0){//상품삭제
-				return "redirect:/admin_board_list.do?page="+page;
+				return "redirect:/AdminGoodsList.do?page="+page;
 				}
 			}
 		}
@@ -420,7 +434,6 @@ public class AdminGoodsAction {
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
 		
-		System.out.println("!!!");
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		session = request.getSession();
@@ -435,7 +448,6 @@ public class AdminGoodsAction {
 			out.println("self.close()");
 			out.println("</script>");
 		} else {
-			System.out.println("!--");
 			int page = 1;
 			if (request.getParameter("page") != null) {
 				page = Integer.parseInt(request.getParameter("page"));
@@ -446,7 +458,6 @@ public class AdminGoodsAction {
 			// textarea박스에서 엔터키 친부분을 다음줄로 개행
 
 			List<CategoryBean> clist=this.categoryService.getCategoryList();
-//			request.setAttribute("clist", clist);
 			
 			
 			
@@ -458,26 +469,29 @@ public class AdminGoodsAction {
 
 
 			if (state.equals("cont")) {
-				System.out.println("admingoods/admin_goods_content까지");
 				cm.setViewName("admingoods/admin_goods_content");
 			}else if (state.equals("edit")) {
 				cm.setViewName("admingoods/admin_goods_modify");
 			}else if (state.equals("del")) {
 				cm.setViewName("admingoods/admin_goods_delete");
 			}
-			System.out.println("122");
+
 			return cm;
-			
-//		}
-		
-//	}
-//	return cm;
 	}
-/******************************************************************/	
-		System.out.println("133");
+
 		return null;
 }
 
+	@RequestMapping(value="AdminLogin")
+	public String admin_Login(HttpServletRequest request,
+			                  HttpServletResponse response) 
+			                	throws Exception {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+
+		return "member/admin_login";
+	}
+	
 	
 }
 

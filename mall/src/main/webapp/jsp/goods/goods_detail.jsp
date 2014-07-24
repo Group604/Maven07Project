@@ -60,8 +60,8 @@ function count_change(temp){
 			<td width="202" height="123" align="center" valign="middle">
 			<img src="./upload/${fn:trim(gb.goods_image)}" width="150" height="150"/>
 			</td>
-			<td width="381" align="center" valign="middle">
-			<table width="300" height="200" border="0">
+			<td width="481" align="center" valign="middle">
+			<table width="340" height="200" border="0">
 				<tr>
 					<td colspan="4" align="center" height="50">
 						<b>${gb.goods_name}</b>
@@ -136,6 +136,9 @@ function count_change(temp){
 						<a href="javascript:isBasket(goodsform);">
 						[장바구니 담기]
 						</a>
+						<a href="./GoodsList.do?page=${page}">
+						[계속 쇼핑하기]
+						</a>
 					</td>
 				</tr>
 			</table>
@@ -147,65 +150,7 @@ function count_change(temp){
 		</tr>
 		<tr>
 			<td colspan="2">
-			<%-- <table align="center">
-				<tr>
-					<td>
-					<%
-					if (prevpage.getGOODS_NUM() != 0) {
-						if (price.equals("no")) {
-					%>
-						<a href="GoodsDetail.go?search=prev&gr_goods_num=<%=itemArray.getGOODS_NUM()%>&item=<%=category%>">
-					<%
-						} else {
-					%> 
-						<a href="GoodsDetail.go?search=prev&gr_goods_num=<%=itemArray.getGOODS_NUM()%>&item=<%=category%>&price=<%=price%>">
-					<%
-						}
-					%>
-						[이전상품] 
-						</a>
-					</td>
-					<td width="100" align="left">
-					<div align="center">
-						<img 
-						src="./upload/<%=prevpage.getGOODS_IMAGE()%>"
-						width="70" height="50" border="0">
-						<br><%=prevpage.getGOODS_NAME()%>
-					</div>
-					</td>
-					<%
-					}
-					%>
-					<td width="100" align="right">
-					<%
-					if (nextpage.getGOODS_NUM() != 0) {
-					%>
-						<div align="center">
-						<img
-						src="./upload/<%=nextpage.getGOODS_IMAGE()%>"
-						width="70" height="50" border="0">
-						<br><%=nextpage.getGOODS_NAME()%>
-					</div>
-					</td>
-					<td>
-					<%
-						if (price.equals("no")) {
-					%>
-						<a href="GoodsDetail.go?search=next&gr_goods_num=<%=itemArray.getGOODS_NUM()%>&item=<%=category%>">
-					<%
-						} else {
-					%>
-						<a href="GoodsDetail.go?search=next&gr_goods_num=<%=itemArray.getGOODS_NUM()%>&item=<%=category%>&price=<%=price%>">
-					<%
-						}
-					%> [다음상품] 
-						</a>
-					<%
- 					}
- 					%>
-					</td>
-				</tr>
-			</table> --%>
+			
 			</td>
 		</tr>
 		</table>

@@ -48,13 +48,15 @@ public class GoodsAction {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		session = request.getSession();
+		String admin_id = (String) session.getAttribute("admin_id");/* 장바구니로 이동하기위해서도 사용됨 */
+
 		
 		/*카테고리 */
 		List<CategoryBean> clist=this.categoryService.getCategoryList();
 		/*농도 */
 		List<CategoryBean> lvlist=this.categoryService.getLevels();
 		
-		String admin_id = (String) session.getAttribute("admin_id");/* 장바구니로 이동하기위해서도 사용됨 */
+		
 		
 		if (admin_id == null) {
 			out.println("<script>");
@@ -155,9 +157,12 @@ public class GoodsAction {
 			// find_field 키값에 board_title,board_cont저장
 			listM.addAttribute("find_name", find_name);
 			// find_name 키값에 검색어를 저장
-		}
+			
 			return "goods/goods_list";
 			// admin폴더의 admin_bbs_list.jsp 뷰페이지로 이동
+		}
+	 return null;
+			
 		}
 
 	@RequestMapping(value="/GoodsDetail")

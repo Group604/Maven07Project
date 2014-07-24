@@ -279,8 +279,12 @@ public class OrderAction {
 			request.setAttribute("golist", golist);
 			request.setAttribute("ordercount", golist.size());
 			
+			
+			
 			/* 상품 주문 상태 플래그 */
 			List<Map<Integer,String>> lstat=this.orderService.sel_stat();
+
+			
 			request.setAttribute("order_stat", lstat);
 			
 			/*			
