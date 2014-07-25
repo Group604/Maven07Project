@@ -52,6 +52,89 @@ public class AdminGoodsAction {
 		return clist;
 	}*/
 	
+	/* 관리자 로그인 */
+	@RequestMapping(value="/AdminLoginOk")
+	public String adminLoginOk(HttpServletRequest request,
+								HttpServletResponse response,
+								HttpSession session,
+								@ModelAttribute GoodsBean b,
+								Model listM
+								) throws Exception{
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		
+		session = request.getSession();
+
+		System.out.println("여기로!");
+		
+//		String admin_id = (String) session.getAttribute("admin_id");
+		String admin_id = request.getParameter("admin_id");
+		
+		System.out.println("admin_id:"+admin_id);
+		
+		if (admin_id == null) {
+			out.println("<script>");
+			out.println("alert('다시 로그인 하세요!')");
+			out.println("location='MemberLogin.do'");
+			out.println("</script>");
+		} else {
+			
+			request.setAttribute("admin_id", admin_id);
+		MemberBean mb =this.memberService.idcheck(admin_id);
+		
+			int page=1;
+			int limit=5;
+		 if(request.getParameter("page")!=null){
+			 page=Integer.parseInt(request.getParameter("page"));
+		 }
+		 
+		 int listcount=admingoodsService.getListCount();
+		 
+		 b.setStartrow((page-1)*5+1);
+	     b.setEndrow(b.getStartrow() + limit -1);
+		 //총레코드/수 반환
+	     
+		List<GoodsBean> glist=admingoodsService.getGoodsList(b);
+
+	    System.out.println("listcount:"+listcount);
+	    /* 카테고리 */
+		List<CategoryBean> clist=this.categoryService.getCategoryList();
+		/*농도 */
+		List<CategoryBean> lvlist=this.categoryService.getLevels();
+		 
+	     
+	     		// 총 페이지 수.
+	  			int maxpage = (int) ((double) listcount / limit + 0.95); // 0.95를 더해서 올림 처리.
+	  			// 현재 페이지에 보여줄 시작 페이지 수(1, 11, 21 등...)
+	  			int startpage = (((int) ((double) page / limit + 0.9)) - 1) * limit + 1;
+	  			// 현재 페이지에 보여줄 마지막 페이지 수.(10, 20, 30 등...)
+	  			int endpage = maxpage;
+	  			
+
+	  			if (endpage > startpage + 5 - 1)
+	  				endpage = startpage +5 - 1;
+
+	  			System.out.println("page:"+page);
+	  			System.out.println("startpage:"+startpage);
+	  			System.out.println("endpage:"+endpage);
+	  			System.out.println("maxpage:"+maxpage);
+	  			System.out.println("admin_name:"+mb.getMember_name());
+	  			listM.addAttribute("admin_name",mb.getMember_name());
+	  			listM.addAttribute("list", glist);
+	  			listM.addAttribute("page", page);
+	  			listM.addAttribute("startpage", startpage);
+	  			listM.addAttribute("endpage", endpage);
+	  			listM.addAttribute("maxpage", maxpage);
+	  			listM.addAttribute("listcount", listcount);
+	  			listM.addAttribute("clist", clist);
+	  			listM.addAttribute("lvlist", lvlist);   
+	  		   
+	  			/* paging 끝 */
+	return "admingoods/admin_main";
+		}
+		return null;
+	}
+	
 	/* 상품 조회 */
 	@RequestMapping(value="/AdminGoodsList")
 	public String adminGoodsList(HttpServletRequest request,
@@ -437,8 +520,8 @@ public class AdminGoodsAction {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		session = request.getSession();
-		String admin_id = (String) session.getAttribute("admin_id");
-		
+		String admin_id = (String) session.getAttribute("member_id");
+
 		ModelAndView cm = new ModelAndView();//뷰생성
 		
 		if (admin_id == null) {

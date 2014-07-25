@@ -1,17 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<metacharset="UTF-8">
-<title>관리자 메인화면</title>
-<link rel="stylesheet" type="text/css" href="./css/admin.css" />
-<link rel="stylesheet" type="text/css" href="./css/bbs.css" />
-<link rel="stylesheet" type="text/css" href="../css/Stores.css"/>
-<script src="http://maps.google.com/maps/api/js?sensor=false" />
-<script type="text/javascript" src="../js/Stores.js"/>
+<%@ include file="../../include/admin_header.jsp" %>
 
+<link rel="stylesheet" type="text/css" href="./css/admin.css" />
 <script>
 	function goodsmodify(goods_num) {
 		$url = "AdminGoodsContent.do?goods_num=" + goods_num + "&state=edit";
@@ -35,59 +27,38 @@
 		open(
 				url,
 				"confirm",
-				"toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=450px,height=300");
+				"toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=650px,height=600");
 	}
 </script>
 </head>
 <body>
-	<!-- 관리자 메인 ui -->
-	<div id="aMain_wrap">
-		<!-- 관리자 상단 -->
-		<div id="aMain_header">
-			<!-- 회사 로고 -->
-			<div id="aMain_logo">
-				<a href="admin_main.do" onfocus="this.blur();"> <img
-					src="./images/admin/admin_logo.gif" />
-				</a>
-			</div>
-			<!-- 상단 메뉴 -->
-			<div id="aMain_menu">
-				<ul>
-					<li><a href="admin_bbs_list.do" onfocus="this.blur();">자료실</a>
-					</li>
-					<li><a href="admin_board_list.do" onfocus="this.blur();">게시판</a>
-					</li>
-					<li><a href="admin_member_list.do" onfocus="this.blur();">회원관리</a>
-					</li>
-					<li><a href="admin_gongji_list.do" onfocus="this.blur();">공지사항</a>
-					</li>
-				</ul>
-			</div>
+
 			<!-- 관리자 상단 우측메뉴 -->
-			<div id="aMain_right">
+			<%-- <div id="aMain_right">
 				<form method="post" action="MemberLogout.do">
 					<h3 class="aMain_title">
 						${admin_name}님 로그인을 환영합니다! <input type="submit" value="로그아웃"
 							class="input_b" />
 					</h3>
 				</form>
-			</div>
-		</div>
+			</div> --%>
+
 
 		<div class="clear"></div>
 
 		<!-- 관리자 메인내용 -->
 		<div id="aMain_cont">
 			<form name=goodsform method="post">
-				<div id="abList_wrap">
-					<div class="abList_title" align="center">상품목록</div>
-					<div align="right" border="1">리스트카운트:${listcount}</div>
-					<div id="bList_count">
+			<input type="hidden" name="admin_id" value="${admin_id}"/>
+				<div id="agList_wrap">
+					<div class="agList_title" align="center">상품목록</div>
+					<div class="agList_count" >리스트카운트:${listcount}</div>
+					<div class="aglink" align=right>
 						<a href="AdminGoodsAdd.do">상품등록</a>
 					</div>
 					<%--상품등록 --%>
 					<!-- 상품 목록 -->
-					<table id="bList_t" border="1">
+					<table id="agList_t" border="1">
 						<tr>
 							<th width="5%">번호</th>
 							<th width="10%">카테고리</th>
@@ -159,17 +130,9 @@
 		</div>
 		<div class="clear"></div>
 		<!-- 관리자 하단 부분 -->
-		<div id="aMain_footer">
+<!-- 		<div id="aMain_footer"> -->
 		
-<!-- <div id="divStoreName">
-	<ul>
-	 <li>주소:서울시 마포구 공덕동 </li>
-	</ul>
-</div> -->
-<div id ="divStore"  ></div>
-			<h4 class="afooter_title">서울시 마포구 대흥동 중앙빌딩....TEL)02-999-9999</h4>
-		</div>
-
-	</div>
+<!-- footer -->
+<%@ include file="../../include/admin_footer.jsp" %>
 </body>
 </html>

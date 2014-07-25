@@ -46,3 +46,98 @@
 	margin:20px 0 0 55px; 
 	
 }
+
+/* admin_main.jsp ui */
+#agList_wrap{
+	width:770px; 
+	height:790px;
+	padding:5px;
+	border-radius:10px;
+	box-shadow:10px 10px 10px #ccc;
+	margin-left:auto; margin-right:auto;
+	margin-top:10px;
+}
+
+#agList_wrap .agList_title{
+	margin:20px 0 0 300px; 
+	width:130px; 
+	font-size:20px;
+	background-color:#369;
+	border:solid 1px #369;
+	color: #FFF;
+	padding:3px; 
+	border-radius:10px;
+	text-align:center;
+}
+
+#agList_wrap .agList_count{
+	margin:0 0 0 610px;
+	background-color:#ccc;
+
+	color: #F361A6;
+	text-align: right;
+	font-weight: bold;
+	width:150px;
+	margin-bottom:10px;
+}
+#agList_t{
+	width:760px;
+	height:550px; 
+	border:1px solid #336699;
+	margin:20px 0 0 10px; 
+}
+#agList_t tr{
+	font-size:10px;
+	font-weight: bold;
+	border: 1px solid #336699;
+	text-align:center;
+}
+#agList_t th {
+	font-size:10px;
+	background-color:#369;
+	border:solid 1px #369;
+	color: #FFF;
+	height:20px;
+}
+#agList_t td{
+	font-size:12px;
+	background-color:#eec;
+	border-bottom:solid 1px #336699;
+	color: black;
+	height:20px;
+}
+.aglink{
+	width:60px;
+	font-size:14px;
+	font-weight:bold;
+	background-color:#86E57F;
+	border:solid 1px #369;
+	color: #8041D9;
+	margin: 0 0 0 700px;
+}
+a:link{
+	text-decoration:none;
+}
+a:active{
+	text-decoration:none;
+}
+a:visited{
+	text-decoration:none;
+}
+a:hover{
+	text-decoration:underline;
+}
+.left_box{
+	padding-left:14px;/*제목부분 안 여백을 14픽셀로 띄움*/
+}
+#list_paging{
+	margin:20px 0 0 20px;
+	text-align:center;
+	font-weight: bold;
+}
+#list_menu{
+	margin:20px 0 0 610px;
+}
+#list_find{
+	margin:auto;
+}

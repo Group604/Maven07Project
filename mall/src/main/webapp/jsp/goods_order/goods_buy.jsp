@@ -30,38 +30,40 @@
 	<table id="OrderList_t">
 		
 		<tr>
-				<th width="10%">번호</font></th>
-				<th width="15%">사진</font></th>
-				<th width="20%">제품명</font></th>
-				<th width="10%">수량</font></th>
-				<th width="10%">가격</font></th>
-				<th width="25%">날짜</font></th>				
-				<th width="10%">취소</font></th>
+				<th width="10%">순번</th>
+				<th width="10%">제품번호</th>
+				<th width="15%">사진</th>
+				<th width="20%">제품명</th>
+				<th width="10%">수량</th>
+				<th width="10%">가격</th>			
+				<th width="10%">취소</th>
 			</tr>
 		<c:if test="${ordertype.equals('goods')}">
-		<c:forEach var="list" items="${basketlist}">
+		<c:forEach var="list" varStatus="status" items="${basketlist}">
 		<tr>
+		<td>${status.count}</td>
+		<td>${list.basket_goods_num}</td>
 		<td><img
 			src="./upload${list.goods_image}" width=50 height=50></td>
 	    <td>${list.goods_name}</td>
 	    <td>${list.basket_goods_amount}</td>
-	    <td>${list.goods_image}</td>
-	    <td>${list.basket_goods_num}</td>
 	    <td>${list.goods_price_amount}</td>
+	    <td><input type="checkbox" name="ischecked"></td>
 		</tr>
 		</c:forEach>
 		</c:if>
 		
 		<c:if test="${ordertype.equals('basket')}">
-		<c:forEach var="list" items="${basketlist}">
+		<c:forEach var="list" varStatus="status" items="${basketlist}">
 		
-		<tr align=center height=20>
+		<tr>
+			<td>${status.count}</td>
+		    <td>${list.basket_goods_num}</td>
 			<td><img src="./upload/${list.goods_image}" width=50 height=50></td>
 			<td>${list.goods_name}</td>
 		    <td>${list.basket_goods_amount}</td>
-		    <td>${list.goods_image}</td>
-		    <td>${list.basket_goods_num}</td>
 		    <td>${list.goods_price_amount}</td>
+		    <td><input type="checkbox" name="ischecked"></td>
 		</tr>
 		</c:forEach>
 		</c:if>

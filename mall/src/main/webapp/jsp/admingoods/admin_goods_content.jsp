@@ -126,7 +126,8 @@ self.close()
 	<input type="button" value="수정" class="input_b" onclick="location='AdminGoodsContent.do?goods_num=${agb.goods_num}&page=${page}&state=edit'" />
 	<input type="button" value="삭제" class="input_b" onclick="location='AdminGoodsContent.do?goods_num=${agb.goods_num}&page=${page}&state=del'" />
 	<input type="button" value="목록" class="input_b" onclick="location='AdminGoodsContent.do?page=${page}'" />
-	<a href="javascript:frameclose()">프레임셋 한방에 닫기</a></th>
+	<input type="button" value="닫기" class="input_b" onclick="javascript:frameclose()">
+	</th>
 	</tr>
 			
 	<!-- <tr>

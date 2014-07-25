@@ -107,8 +107,8 @@
     <div class="recent">
 	    <h3>최근 본 상품 </h3>
         <ul>
-        	<li><img src="images/products/book/html5_icon.jpg" width="75" height="95"></li>
-            <li><img src="images/products/book/jquery_icon.jpg" width="75" height="95"></li>
+        	<li><img src="images/products/coffee/Goods20140704-100203-105.png" width="75" height="75"></li>
+            <li><img src="images/products/coffee/Goods20140704-101222-8299.png" width="75" height="75"></li>
          </ul> 	
     </div>
 
